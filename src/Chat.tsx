@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 import './Chat.css';
-import { MdMoreHoriz, MdArrowBack } from 'react-icons/md';
+import { MdMoreHoriz, MdArrowBack, MdInfo } from 'react-icons/md';
 import logo from './assets/logo.PNG';
 
 const users = [
@@ -36,10 +37,80 @@ const initialMessages = [
   { id: 11, user: 'me', text: 'ამ ეტაპზე, სამწუხაროდ, ვერ შემოგთავაზებთ.', time: '12:10', negative: true },
 ];
 
+const levanMessages = [
+  { id: 1, user: 'me', text: 'გამარჯობა! როგორ შემიძლია დაგეხმაროთ?', time: '14:30' },
+  { id: 2, user: 'bot', text: 'გამარჯობა! მაინტერესებს ფასები.', time: '14:31' },
+  { id: 3, user: 'me', text: 'რა პროდუქტი გაინტერესებთ?', time: '14:32' },
+  { id: 4, user: 'bot', text: 'მადლობა, მოგვიანებით დაგიკავშირდებით.', time: '14:33', positive: true },
+];
+
+const mariamMessages = [
+  { id: 1, user: 'me', text: 'გამარჯობა! როგორ შემიძლია დაგეხმაროთ?', time: '16:45' },
+  { id: 2, user: 'bot', text: 'გამარჯობა! პრობლემა მაქვს შეკვეთასთან.', time: '16:46' },
+  { id: 3, user: 'me', text: 'რა პრობლემაა? დეტალურად მითხარით.', time: '16:47' },
+  { id: 4, user: 'bot', text: 'შეკვეთა არ მივიღე ვადაში.', time: '16:48', negative: true },
+  { id: 5, user: 'me', text: 'ბოდიში, დაუყოვნებლივ გადავხედავთ.', time: '16:49' },
+];
+
 const Chat: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedUser, setSelectedUser] = useState(users[0]);
   const [messages, setMessages] = useState(initialMessages);
   const [newMessage, setNewMessage] = useState('');
+
+  const getMessagesForUser = (userId: number) => {
+    switch (userId) {
+      case 2: // ლევან ქავთარაძე
+        return levanMessages;
+      case 3: // მარიამ დვალიშვილი
+        return mariamMessages;
+      default:
+        return initialMessages;
+    }
+  };
+
+  const getHeaderBadges = (userId: number) => {
+    switch (userId) {
+      case 2: // ლევან ქავთარაძე
+        return [
+          { text: 'განწყობა: დადებითი', color: 'badge-green' },
+          { text: 'საშუალო პასუხის დრო: 1.2წთ', color: 'badge-blue' },
+          { text: 'ჩატის ხანგრძლივობა: 8წთ', color: 'badge-purple' },
+          { text: 'თეგები: ფასები, ინფორმაცია', color: 'badge-orange' },
+          { text: 'აქტიური', color: 'badge-green' },
+          { text: 'მომხმარებელი სერვისში', color: 'badge-blue' },
+          { text: '92%', color: 'badge-green' },
+          { text: '8%', color: 'badge-red' }
+        ];
+      case 3: // მარიამ დვალიშვილი
+        return [
+          { text: 'განწყობა: ნეგატიური', color: 'badge-red' },
+          { text: 'საშუალო პასუხის დრო: 3.8წთ', color: 'badge-blue' },
+          { text: 'ჩატის ხანგრძლივობა: 22წთ', color: 'badge-purple' },
+          { text: 'თეგები: პრობლემა, შეკვეთა', color: 'badge-orange' },
+          { text: 'აქტიური', color: 'badge-green' },
+          { text: 'მომხმარებელი სერვისში', color: 'badge-blue' },
+          { text: '45%', color: 'badge-red' },
+          { text: '55%', color: 'badge-red' }
+        ];
+      default:
+        return [
+          { text: 'განწყობა: დადებითი', color: 'badge-green' },
+          { text: 'საშუალო პასუხის დრო: 2.3წთ', color: 'badge-blue' },
+          { text: 'ჩატის ხანგრძლივობა: 15წთ', color: 'badge-purple' },
+          { text: 'თეგები: შეკვეთა, პრობლემა', color: 'badge-orange' },
+          { text: 'აქტიური', color: 'badge-green' },
+          { text: 'მომხმარებელი სერვისში', color: 'badge-blue' },
+          { text: '78%', color: 'badge-green' },
+          { text: '22%', color: 'badge-red' }
+        ];
+    }
+  };
+
+  const handleUserSelect = (user: any) => {
+    setSelectedUser(user);
+    setMessages(getMessagesForUser(user.id));
+  };
 
   const handleSendMessage = () => {
     if (newMessage.trim()) {
@@ -79,7 +150,7 @@ const Chat: React.FC = () => {
             <li
               key={user.id}
               className={`user-list-item${selectedUser.id === user.id ? ' user-list-item-selected' : ''}`}
-              onClick={() => setSelectedUser(user)}
+              onClick={() => handleUserSelect(user)}
             >
               <img src={user.avatar} alt={user.name} className="user-avatar" />
               <div className="user-info">
@@ -96,13 +167,13 @@ const Chat: React.FC = () => {
       <div className="chat-main-area">
         {/* Header */}
         <header className="chat-header">
-          <img src={logo} alt="SatisfAI" className="chat-logo" />
+          <img src={logo} alt="SatisfAI" className="chat-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }} />
           <div className="chat-status-badges">
-            <span className="badge badge-green">აქტიური</span>
-            <span className="badge badge-blue">მომხმარებელი სერვისში</span>
-            <span className="badge badge-green">78%</span>
-            <span className="badge badge-red">22%</span>
+            {getHeaderBadges(selectedUser.id).map((badge, index) => (
+              <span key={index} className={`badge ${badge.color}`}>{badge.text}</span>
+            ))}
           </div>
+          <MdInfo className="chat-info-icon" title="ინფორმაცია" />
         </header>
         {/* Chat Summary on border line */}
         <div className="chat-summary-bar">

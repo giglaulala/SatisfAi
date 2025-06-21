@@ -4,8 +4,10 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import Chat from './Chat';
 import { MdChat } from 'react-icons/md';
-import { FaRocket, FaRobot, FaChartLine, FaUsers, FaCog } from 'react-icons/fa';
+import { FaRocket, FaRobot, FaChartLine, FaUsers, FaCog, FaLink, FaShieldAlt, FaHeadset, FaCheckCircle } from 'react-icons/fa';
 import logo from './assets/logo.PNG';
+import screenshot from './assets/screenshot.PNG';
+import screenshot1 from './assets/screenshot1.PNG';
 
 const lineData = [
   { value: 900 }, { value: 1050 }, { value: 950 }, { value: 1200 }, { value: 1000 }, { value: 1300 }, { value: 1158 }
@@ -25,7 +27,7 @@ const Dashboard: React.FC = () => {
     <div className="dashboard-bg">
       <header className="dashboard-header">
         <div>
-          <div className="logo-title">
+          <div className="logo-title" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
             <img src={logo} alt="SatisfAI Logo" className="logo-image" />
             <h1>Chat Analytics Dashboard</h1>
           </div>
@@ -124,7 +126,7 @@ const StarterPage: React.FC = () => {
     <div className="starter-page">
       <header className="dashboard-header">
         <div>
-          <div className="logo-title">
+          <div className="logo-title" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
             <img src={logo} alt="SatisfAI Logo" className="logo-image" />
             <h1>Welcome to SatisfAI</h1>
           </div>
@@ -138,7 +140,7 @@ const StarterPage: React.FC = () => {
       </header>
       <main className="starter-main">
         <div className="starter-content">
-          <h2>Enhance Your Business with AI</h2>
+          <h2>Analyze <span style={{color: '#2563eb'}}>54x</span> faster, with <span style={{color: '#2563eb'}}>40%</span> less cost</h2>
           <p>SatisfAI helps you streamline customer communication and optimize business processes.</p>
           <button className="starter-cta-btn" onClick={() => navigate('/dashboard')}>
             Start Demo
@@ -159,6 +161,58 @@ const StarterPage: React.FC = () => {
           </div>
         </div>
       </main>
+      <section className="capabilities-section">
+        <h2>What SatisfAI is Capable Of</h2>
+        <div className="feature-icons-container">
+          <div className="feature-icon-item">
+            <FaShieldAlt />
+            <span>Secure Data</span>
+          </div>
+          <div className="feature-icon-item">
+            <FaHeadset />
+            <span>24/7 Support</span>
+          </div>
+          <div className="feature-icon-item">
+            <FaRocket />
+            <span>Fast Setup</span>
+          </div>
+          <div className="feature-icon-item">
+            <FaCheckCircle />
+            <span>99% Uptime</span>
+          </div>
+        </div>
+        <div className="capabilities-container">
+          <div className="capability-item">
+            <div className="capability-text-item">
+              <div className="capability-icon-wrapper">
+                <FaChartLine />
+              </div>
+              <div className="capability-text-content">
+                <h3>Advanced Chat Analytics</h3>
+                <p>Gain deep insights into your customer interactions with our powerful analytics dashboard.</p>
+              </div>
+            </div>
+            <div className="capability-text-item">
+              <div className="capability-icon-wrapper">
+                <FaLink />
+              </div>
+              <div className="capability-text-content">
+                <h3>Seamless Integration</h3>
+                <p>Easily integrate SatisfAI with your existing tools and workflows for a streamlined experience.</p>
+              </div>
+            </div>
+          </div>
+          <div className="capability-item capability-images-container">
+            <div className="capability-images-stacked">
+              <img src={screenshot} alt="Screenshot of Advanced Chat Analytics" className="capability-screenshot" />
+              <img src={screenshot1} alt="Screenshot of Seamless Integration" className="capability-screenshot" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer className="site-footer">
+        <p>© 2024 SatisfAI. All rights reserved.</p>
+      </footer>
       <div className="dashboard-bg-curve dashboard-bg-curve-green"></div>
       <div className="dashboard-bg-curve dashboard-bg-curve-red"></div>
     </div>
