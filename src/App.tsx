@@ -52,7 +52,7 @@ const Dashboard: React.FC = () => {
             <div className="dashboard-card-title">Chat Distribution</div>
             <div className="dashboard-pie-row">
               <div className="dashboard-pie-legend">
-                {pieData.map((entry, idx) => (
+                {pieData.map((entry) => (
                   <div className="dashboard-pie-legend-item" key={entry.name}>
                     <span className="dashboard-pie-legend-dot" style={{ background: entry.color }}></span>
                     <span>{entry.name}</span>
