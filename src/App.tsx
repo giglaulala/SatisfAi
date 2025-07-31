@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LineChart, Line, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import Chat from './Chat';
+import Register from './Register';
 import { MdChat } from 'react-icons/md';
 import { FaRocket, FaRobot, FaChartLine, FaUsers, FaCog, FaLink, FaShieldAlt, FaHeadset, FaCheckCircle } from 'react-icons/fa';
 import logo from './assets/logo.PNG';
@@ -19,6 +20,29 @@ const pieData = [
   { name: 'Messages', value: 12, color: '#fbbf24' },
   { name: 'Issues', value: 8, color: '#ef4444' },
   { name: 'Other', value: 6, color: '#64748b' },
+];
+
+const customerCards = [
+  {
+    img: 'https://via.placeholder.com/180x120?text=Customer+1',
+    title: 'Customer One',
+  },
+  {
+    img: 'https://via.placeholder.com/180x120?text=Customer+2',
+    title: 'Customer Two',
+  },
+  {
+    img: 'https://via.placeholder.com/180x120?text=Customer+3',
+    title: 'Customer Three',
+  },
+  {
+    img: 'https://via.placeholder.com/180x120?text=Customer+4',
+    title: 'Customer Four',
+  },
+  {
+    img: 'https://via.placeholder.com/180x120?text=Customer+5',
+    title: 'Customer Five',
+  },
 ];
 
 const Dashboard: React.FC = () => {
@@ -142,8 +166,11 @@ const StarterPage: React.FC = () => {
         <div className="starter-content">
           <h2>Analyze <span style={{color: '#2563eb'}}>54x</span> faster, with <span style={{color: '#2563eb'}}>40%</span> less cost</h2>
           <p>SatisfAI helps you streamline customer communication and optimize business processes.</p>
+          <button className="starter-cta-btn-register" onClick={() => navigate('/register')}>
+            Register Now
+          </button>
           <button className="starter-cta-btn" onClick={() => navigate('/dashboard')}>
-            Start Demo
+            Analyse Now
           </button>
         </div>
         <div className="starter-illustration">
@@ -182,6 +209,12 @@ const StarterPage: React.FC = () => {
           </div>
         </div>
         <div className="capabilities-container">
+          <div className="capability-item capability-images-container">
+            <div className="capability-images-stacked">
+              <img src={screenshot} alt="Screenshot of Advanced Chat Analytics" className="capability-screenshot" />
+              <img src={screenshot1} alt="Screenshot of Seamless Integration" className="capability-screenshot" />
+            </div>
+          </div>
           <div className="capability-item">
             <div className="capability-text-item">
               <div className="capability-icon-wrapper">
@@ -202,14 +235,54 @@ const StarterPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="capability-item capability-images-container">
-            <div className="capability-images-stacked">
-              <img src={screenshot} alt="Screenshot of Advanced Chat Analytics" className="capability-screenshot" />
-              <img src={screenshot1} alt="Screenshot of Seamless Integration" className="capability-screenshot" />
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="services-section">
+        <h2 className="services-title">Services</h2>
+        <div className="services-list">
+          <h1>Filler Service 1</h1>
+          <h1>Filler Service 2</h1>
+          <h1>Filler Service 3</h1>
+          <h1>Filler Service 4</h1>
+        </div>
+      </section>
+
+      {/* Service Visualisation Flow Section */}
+      <section className="service-visualisation-section">
+        <h1 className="service-visualisation-title">Service Visualisation Flow</h1>
+        <p className="service-visualisation-desc">This is a placeholder description for the service visualisation flow. You can describe how your services interact or the process flow here.</p>
+        <div className="service-visualisation-img-wrapper">
+          <img src="https://via.placeholder.com/500x220?text=Flow+Placeholder" alt="Service Visualisation Flow" className="service-visualisation-img" />
+        </div>
+      </section>
+
+      {/* Customers Carousel Section */}
+      <section className="customers-section">
+        <h2 className="customers-title">Customers</h2>
+        <CustomersCarousel />
+      </section>
+
+      {/* Break Card Section */}
+      <section className="break-card-section">
+        <div className="break-card-bg">
+          <div className="break-card-content">
+            <h1 className="break-card-title">Take a Break, Boost Your Productivity</h1>
+            <div className="break-card-buttons">
+              <button className="break-card-btn break-card-btn-primary">Start Break</button>
+              <button className="break-card-btn break-card-btn-secondary">Learn More</button>
             </div>
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="faq-section">
+        <h2 className="faq-title">FAQ</h2>
+        <FAQAccordion />
+      </section>
+
       <footer className="site-footer">
         <p>© 2024 SatisfAI. All rights reserved.</p>
       </footer>
@@ -223,9 +296,82 @@ const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<StarterPage />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/chat" element={<Chat />} />
     </Routes>
+  );
+};
+
+// Carousel component
+const CustomersCarousel: React.FC = () => {
+  const [startIdx, setStartIdx] = useState(0);
+  const visibleCount = 3;
+  const canGoLeft = startIdx > 0;
+  const canGoRight = startIdx + visibleCount < customerCards.length;
+
+  const handleLeft = () => {
+    if (canGoLeft) setStartIdx(startIdx - 1);
+  };
+  const handleRight = () => {
+    if (canGoRight) setStartIdx(startIdx + 1);
+  };
+
+  return (
+    <div className="carousel-wrapper">
+      <button className="carousel-arrow" onClick={handleLeft} disabled={!canGoLeft}>&lt;</button>
+      <div className="carousel-cards">
+        {customerCards.slice(startIdx, startIdx + visibleCount).map((card, idx) => (
+          <div className="customer-card" key={card.title + idx}>
+            <img src={card.img} alt={card.title} className="customer-card-img" />
+            <h1 className="customer-card-title">{card.title}</h1>
+          </div>
+        ))}
+      </div>
+      <button className="carousel-arrow" onClick={handleRight} disabled={!canGoRight}>&gt;</button>
+    </div>
+  );
+};
+
+// FAQ data and accordion component
+const faqData = [
+  {
+    question: 'What is SatisfAI?',
+    answer: 'SatisfAI is a platform that helps you analyze and optimize your customer chat interactions with advanced analytics.'
+  },
+  {
+    question: 'How do I register?',
+    answer: 'Click the Register Now button on the landing page and fill out the registration form to get started.'
+  },
+  {
+    question: 'Is my data secure?',
+    answer: 'Yes, we use industry-standard security practices to keep your data safe and private.'
+  },
+  {
+    question: 'Can I try the demo before registering?',
+    answer: 'Absolutely! Click Try Demo to explore the dashboard and analytics features.'
+  },
+];
+
+const FAQAccordion: React.FC = () => {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const toggle = (idx: number) => {
+    setOpenIdx(openIdx === idx ? null : idx);
+  };
+  return (
+    <div className="faq-list">
+      {faqData.map((item, idx) => (
+        <div className={`faq-item${openIdx === idx ? ' open' : ''}`} key={item.question}>
+          <button className="faq-question" onClick={() => toggle(idx)}>
+            {item.question}
+            <span className="faq-arrow">{openIdx === idx ? '−' : '+'}</span>
+          </button>
+          <div className="faq-answer-wrapper" style={{ maxHeight: openIdx === idx ? 200 : 0 }}>
+            <div className="faq-answer">{item.answer}</div>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
