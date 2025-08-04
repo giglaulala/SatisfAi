@@ -1,64 +1,104 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaArrowLeft } from 'react-icons/fa';
-import logo from './assets/logo.PNG';
-import './App.css';
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaArrowLeft,
+  FaGlobe,
+  FaChevronDown,
+} from "react-icons/fa";
+import logo from "./assets/logo.PNG";
+import "./App.css";
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
+  const [selectedLanguage, setSelectedLanguage] = useState("EN");
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+  const languageSelectorRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const languages = [
+    { code: "EN", name: "English" },
+    { code: "KA", name: "ქართული" },
+    { code: "RU", name: "Русский" },
+  ];
+
+  const handleLanguageSelect = (languageCode: string) => {
+    setSelectedLanguage(languageCode);
+    setIsLanguageDropdownOpen(false);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        languageSelectorRef.current &&
+        !languageSelectorRef.current.contains(event.target as Node)
+      ) {
+        setIsLanguageDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: "",
       }));
     }
   };
 
   const validateForm = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors: { [key: string]: string } = {};
 
     if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
+      newErrors.firstName = "First name is required";
     }
 
     if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
+      newErrors.lastName = "Last name is required";
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = "Please enter a valid email address";
     }
 
     if (!formData.password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = "Password is required";
     } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters long';
+      newErrors.password = "Password must be at least 8 characters long";
     }
 
     if (!formData.confirmPassword) {
-      newErrors.confirmPassword = 'Please confirm your password';
+      newErrors.confirmPassword = "Please confirm your password";
     } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      newErrors.confirmPassword = "Passwords do not match";
     }
 
     setErrors(newErrors);
@@ -69,9 +109,9 @@ const Register: React.FC = () => {
     e.preventDefault();
     if (validateForm()) {
       // Here you would typically make an API call to register the user
-      console.log('Registration data:', formData);
+      console.log("Registration data:", formData);
       // For now, just navigate to dashboard
-      navigate('/dashboard');
+      navigate("/dashboard");
     }
   };
 
@@ -79,18 +119,55 @@ const Register: React.FC = () => {
     <div className="dashboard-bg">
       <header className="dashboard-header">
         <div>
-          <div className="logo-title" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+          <div
+            className="logo-title"
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
+          >
             <img src={logo} alt="SatisfAI Logo" className="logo-image" />
             <h1>Create Account</h1>
           </div>
         </div>
         <div className="dashboard-header-right">
-          <button 
-            className="dashboard-header-btn" 
-            onClick={() => navigate('/')}
-            style={{ background: 'transparent', color: '#2563eb', border: '1px solid #2563eb' }}
+          <div className="language-selector" ref={languageSelectorRef}>
+            <button
+              className="language-selector-btn"
+              onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
+            >
+              <FaGlobe className="language-icon" />
+              <span>{selectedLanguage}</span>
+              <FaChevronDown
+                className={`language-chevron ${
+                  isLanguageDropdownOpen ? "rotated" : ""
+                }`}
+              />
+            </button>
+            {isLanguageDropdownOpen && (
+              <div className="language-dropdown">
+                {languages.map((language) => (
+                  <button
+                    key={language.code}
+                    className={`language-option ${
+                      selectedLanguage === language.code ? "selected" : ""
+                    }`}
+                    onClick={() => handleLanguageSelect(language.code)}
+                  >
+                    {language.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <button
+            className="dashboard-header-btn"
+            onClick={() => navigate("/")}
+            style={{
+              background: "transparent",
+              color: "#2563eb",
+              border: "1px solid #2563eb",
+            }}
           >
-            <FaArrowLeft style={{marginRight: 8, verticalAlign: 'middle'}} />
+            <FaArrowLeft style={{ marginRight: 8, verticalAlign: "middle" }} />
             Back to Home
           </button>
         </div>
@@ -101,7 +178,7 @@ const Register: React.FC = () => {
           <div className="register-card">
             <h2>Join SatisfAI</h2>
             <p>Start analyzing your chat data in minutes</p>
-            
+
             <form onSubmit={handleSubmit} className="register-form">
               <div className="form-row">
                 <div className="form-group">
@@ -114,11 +191,13 @@ const Register: React.FC = () => {
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleInputChange}
-                      className={errors.firstName ? 'input-error' : ''}
+                      className={errors.firstName ? "input-error" : ""}
                       placeholder="Enter your first name"
                     />
                   </div>
-                  {errors.firstName && <span className="error-message">{errors.firstName}</span>}
+                  {errors.firstName && (
+                    <span className="error-message">{errors.firstName}</span>
+                  )}
                 </div>
 
                 <div className="form-group">
@@ -131,11 +210,13 @@ const Register: React.FC = () => {
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleInputChange}
-                      className={errors.lastName ? 'input-error' : ''}
+                      className={errors.lastName ? "input-error" : ""}
                       placeholder="Enter your last name"
                     />
                   </div>
-                  {errors.lastName && <span className="error-message">{errors.lastName}</span>}
+                  {errors.lastName && (
+                    <span className="error-message">{errors.lastName}</span>
+                  )}
                 </div>
               </div>
 
@@ -149,11 +230,13 @@ const Register: React.FC = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={errors.email ? 'input-error' : ''}
+                    className={errors.email ? "input-error" : ""}
                     placeholder="Enter your email address"
                   />
                 </div>
-                {errors.email && <span className="error-message">{errors.email}</span>}
+                {errors.email && (
+                  <span className="error-message">{errors.email}</span>
+                )}
               </div>
 
               <div className="form-group">
@@ -161,12 +244,12 @@ const Register: React.FC = () => {
                 <div className="input-wrapper">
                   <FaLock className="input-icon" />
                   <input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className={errors.password ? 'input-error' : ''}
+                    className={errors.password ? "input-error" : ""}
                     placeholder="Create a password"
                   />
                   <button
@@ -177,7 +260,9 @@ const Register: React.FC = () => {
                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
-                {errors.password && <span className="error-message">{errors.password}</span>}
+                {errors.password && (
+                  <span className="error-message">{errors.password}</span>
+                )}
               </div>
 
               <div className="form-group">
@@ -185,12 +270,12 @@ const Register: React.FC = () => {
                 <div className="input-wrapper">
                   <FaLock className="input-icon" />
                   <input
-                    type={showConfirmPassword ? 'text' : 'password'}
+                    type={showConfirmPassword ? "text" : "password"}
                     id="confirmPassword"
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    className={errors.confirmPassword ? 'input-error' : ''}
+                    className={errors.confirmPassword ? "input-error" : ""}
                     placeholder="Confirm your password"
                   />
                   <button
@@ -201,7 +286,11 @@ const Register: React.FC = () => {
                     {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
-                {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
+                {errors.confirmPassword && (
+                  <span className="error-message">
+                    {errors.confirmPassword}
+                  </span>
+                )}
               </div>
 
               <button type="submit" className="register-submit-btn">
@@ -210,7 +299,15 @@ const Register: React.FC = () => {
             </form>
 
             <div className="register-footer">
-              <p>Already have an account? <span onClick={() => navigate('/')} className="login-link">Sign in</span></p>
+              <p>
+                Already have an account?{" "}
+                <span
+                  onClick={() => navigate("/signin")}
+                  className="login-link"
+                >
+                  Sign in
+                </span>
+              </p>
             </div>
           </div>
         </div>
@@ -222,4 +319,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register; 
+export default Register;
