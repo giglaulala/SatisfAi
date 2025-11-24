@@ -7,7 +7,6 @@ import {
   FaHome,
   FaCommentDots,
   FaUsers,
-  FaGift,
   FaChartPie,
   FaCog,
 } from 'react-icons/fa';
@@ -61,11 +60,10 @@ const mariamMessages = [
 ];
 
 const demoSidebarItems = [
-  { icon: <FaHome />, label: 'Dashboard', active: true },
+  { icon: <FaHome />, label: 'Home', active: true },
   { icon: <FaCommentDots />, label: 'Messages' },
   { icon: <FaUsers />, label: 'Users' },
-  { icon: <FaGift />, label: 'Rewards' },
-  { icon: <FaChartPie />, label: 'Reports' },
+  { icon: <FaChartPie />, label: 'Dashboard' },
   { icon: <FaCog />, label: 'Settings' },
 ];
 
@@ -159,6 +157,17 @@ const Chat: React.FC = () => {
 
   const handleNavSelect = (label: string) => {
     setActiveNavItem(label);
+
+    if (label === 'Home') {
+      navigate('/');
+      return;
+    }
+
+    if (label === 'Dashboard') {
+      navigate('/dashboard');
+      return;
+    }
+
     if (label === 'Messages') {
       setSidebarMode('chats');
     }
@@ -213,13 +222,17 @@ const Chat: React.FC = () => {
           </>
         ) : (
           <div className="nav-sidebar">
-            <div className="nav-sidebar-brand">
-              <div className="nav-logo-letter">S</div>
+            <button
+              className="nav-sidebar-profile"
+              type="button"
+              onClick={() => navigate('/profile')}
+            >
+              <div className="nav-profile-avatar">SJ</div>
               <div>
-                <div className="nav-brand-name">SatisfAI</div>
-                <div className="nav-brand-subtitle">Command Center</div>
+                <div className="nav-profile-name">Sandro Japaridze</div>
+                <div className="nav-profile-role">Product Lead</div>
               </div>
-            </div>
+            </button>
             <nav className="nav-items">
               {demoSidebarItems.map((item) => (
                 <button

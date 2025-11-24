@@ -12,6 +12,7 @@ import "./App.css";
 import Chat from "./Chat";
 import Register from "./Register";
 import SignIn from "./SignIn";
+import Profile from "./Profile";
 import { MdChat } from "react-icons/md";
 import {
   FaRocket,
@@ -626,6 +627,7 @@ const App: React.FC = () => {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/chat" element={<Chat />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 };
