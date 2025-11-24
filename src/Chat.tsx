@@ -3,6 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import './App.css';
 import './Chat.css';
 import { MdMoreHoriz, MdArrowBack, MdInfo } from 'react-icons/md';
+import {
+  FaHome,
+  FaCommentDots,
+  FaUsers,
+  FaGift,
+  FaChartPie,
+  FaCog,
+} from 'react-icons/fa';
 import logo from './assets/logo.PNG';
 
 const users = [
@@ -52,11 +60,24 @@ const mariamMessages = [
   { id: 5, user: 'me', text: 'ბოდიში, დაუყოვნებლივ გადავხედავთ.', time: '16:49' },
 ];
 
+const demoSidebarItems = [
+  { icon: <FaHome />, label: 'Dashboard', active: true },
+  { icon: <FaCommentDots />, label: 'Messages' },
+  { icon: <FaUsers />, label: 'Users' },
+  { icon: <FaGift />, label: 'Rewards' },
+  { icon: <FaChartPie />, label: 'Reports' },
+  { icon: <FaCog />, label: 'Settings' },
+];
+
+type SidebarMode = 'chats' | 'navigation';
+
 const Chat: React.FC = () => {
   const navigate = useNavigate();
   const [selectedUser, setSelectedUser] = useState(users[0]);
   const [messages, setMessages] = useState(initialMessages);
   const [newMessage, setNewMessage] = useState('');
+  const [sidebarMode, setSidebarMode] = useState<SidebarMode>('chats');
+  const [activeNavItem, setActiveNavItem] = useState(demoSidebarItems[0].label);
 
   const getMessagesForUser = (userId: number) => {
     switch (userId) {
@@ -132,35 +153,103 @@ const Chat: React.FC = () => {
     }
   };
 
+  const handleBackClick = () => {
+    setSidebarMode((prev) => (prev === 'chats' ? 'navigation' : 'chats'));
+  };
+
+  const handleNavSelect = (label: string) => {
+    setActiveNavItem(label);
+    if (label === 'Messages') {
+      setSidebarMode('chats');
+    }
+  };
+
   return (
     <div className="chat-layout">
       {/* Sidebar */}
-      <aside className="chat-sidebar">
-        <div className="sidebar-header">
-          <button className="back-button" onClick={() => window.history.back()}>
-            <MdArrowBack />
-          </button>
-          <div className="sidebar-search">
-            <input type="text" placeholder="ძებნა..." className="sidebar-search-input" />
-          </div>
-          <span className="chat-logo">.</span>
-        </div>
-        <ul className="user-list">
-          {users.map(user => (
-            <li
-              key={user.id}
-              className={`user-list-item${selectedUser.id === user.id ? ' user-list-item-selected' : ''}`}
-              onClick={() => handleUserSelect(user)}
-            >
-              <img src={user.avatar} alt={user.name} className="user-avatar" />
-              <div className="user-info">
-                <span className="user-name">{user.name}</span>
-                <span className="user-last-message">{user.lastMessage}</span>
+      <aside
+        className={`chat-sidebar${
+          sidebarMode === 'navigation' ? ' chat-sidebar-nav-mode' : ''
+        }`}
+      >
+        {sidebarMode === 'chats' ? (
+          <>
+            <div className="sidebar-header">
+              <button
+                className="back-button"
+                onClick={handleBackClick}
+                aria-pressed={sidebarMode === 'navigation'}
+                title="Show navigation"
+              >
+                <MdArrowBack />
+              </button>
+              <div className="sidebar-search">
+                <input
+                  type="text"
+                  placeholder="ძებნა..."
+                  className="sidebar-search-input"
+                />
               </div>
-              <span className="user-time">{user.time}</span>
-            </li>
-          ))}
-        </ul>
+              <span className="chat-logo">.</span>
+            </div>
+            <ul className="user-list">
+              {users.map((user) => (
+                <li
+                  key={user.id}
+                  className={`user-list-item${
+                    selectedUser.id === user.id ? ' user-list-item-selected' : ''
+                  }`}
+                  onClick={() => handleUserSelect(user)}
+                >
+                  <img src={user.avatar} alt={user.name} className="user-avatar" />
+                  <div className="user-info">
+                    <span className="user-name">{user.name}</span>
+                    <span className="user-last-message">{user.lastMessage}</span>
+                  </div>
+                  <span className="user-time">{user.time}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <div className="nav-sidebar">
+            <div className="nav-sidebar-brand">
+              <div className="nav-logo-letter">S</div>
+              <div>
+                <div className="nav-brand-name">SatisfAI</div>
+                <div className="nav-brand-subtitle">Command Center</div>
+              </div>
+            </div>
+            <nav className="nav-items">
+              {demoSidebarItems.map((item) => (
+                <button
+                  key={item.label}
+                  type="button"
+                  className={`nav-item${
+                    activeNavItem === item.label ? ' active' : ''
+                  }`}
+                  onClick={() => handleNavSelect(item.label)}
+                >
+                  <span className="nav-item-icon">{item.icon}</span>
+                  <span>{item.label}</span>
+                </button>
+              ))}
+            </nav>
+            {activeNavItem !== 'Messages' && (
+              <div className="nav-placeholder-card">
+                <h3>{activeNavItem}</h3>
+                <p>Navigation preview coming soon.</p>
+                <button
+                  type="button"
+                  className="nav-go-back-btn"
+                  onClick={() => setSidebarMode('chats')}
+                >
+                  Back to chats
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </aside>
 
       {/* Main Chat Area */}
@@ -219,7 +308,7 @@ const Chat: React.FC = () => {
             <span className="icon-more" title="მეტი">⋯</span>
           </div>
         </div>
-      </div>
+    </div>
     </div>
   );
 };
