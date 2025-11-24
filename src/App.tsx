@@ -25,6 +25,8 @@ import {
   FaCheckCircle,
   FaGlobe,
   FaChevronDown,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 import logo from "./assets/logo.PNG";
 import screenshot from "./assets/screenshot.PNG";
@@ -50,24 +52,49 @@ const pieData = [
 
 const customerCards = [
   {
-    img: "https://via.placeholder.com/180x120?text=Customer+1",
-    title: "Customer One",
+    img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80",
+    logo: "https://logo.clearbit.com/intercom.com",
+    title: "Intercom CX",
+    industry: "SaaS Support",
+    quote:
+      "Our managers can spot trends in minutes instead of digging through raw chat logs.",
+    metric: "37% faster resolution",
   },
   {
-    img: "https://via.placeholder.com/180x120?text=Customer+2",
-    title: "Customer Two",
+    img: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=600&q=80",
+    logo: "https://logo.clearbit.com/shopify.com",
+    title: "Shopify Plus",
+    industry: "E‑commerce Ops",
+    quote:
+      "SatisfAI gave us instant voice-of-customer insights for every launch.",
+    metric: "+18 pts CSAT",
   },
   {
-    img: "https://via.placeholder.com/180x120?text=Customer+3",
-    title: "Customer Three",
+    img: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80",
+    logo: "https://logo.clearbit.com/notion.so",
+    title: "Notion Crew",
+    industry: "Community",
+    quote:
+      "Topic clustering and AI summaries keep our small team highly leveraged.",
+    metric: "4h/day saved",
   },
   {
-    img: "https://via.placeholder.com/180x120?text=Customer+4",
-    title: "Customer Four",
+    img: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=600&q=80",
+    logo: "https://logo.clearbit.com/airbnb.com",
+    title: "Airbnb Hosts",
+    industry: "Marketplace Trust",
+    quote:
+      "Escalations dropped after we automated routing workflows via SatisfAI.",
+    metric: "−22% escalations",
   },
   {
-    img: "https://via.placeholder.com/180x120?text=Customer+5",
-    title: "Customer Five",
+    img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80",
+    logo: "https://logo.clearbit.com/peloton.com",
+    title: "Peloton Care",
+    industry: "Consumer Hardware",
+    quote:
+      "We finally have real-time visibility into sentiment across channels.",
+    metric: "Single source of truth",
   },
 ];
 
@@ -389,16 +416,85 @@ const StarterPage: React.FC = () => {
             </div>
           </div>
         </div>
+        {/* Filler content to complete the section visually */}
+        <div className="capabilities-filler">
+          <p className="capabilities-lead">
+            From real-time insights to effortless integrations, SatisfAI covers
+            your end-to-end customer communication analytics. Explore a few
+            examples below to see how teams use SatisfAI to make smarter, faster
+            decisions every day.
+          </p>
+        </div>
       </section>
 
       {/* Services Section */}
       <section className="services-section">
         <h2 className="services-title">Services</h2>
-        <div className="services-list">
-          <h1>Filler Service 1</h1>
-          <h1>Filler Service 2</h1>
-          <h1>Filler Service 3</h1>
-          <h1>Filler Service 4</h1>
+        <p className="services-lead">
+          Everything you need to analyze, automate, and improve customer
+          conversations.
+        </p>
+        <div className="services-grid">
+          <div className="service-card">
+            <div className="service-icon">
+              <FaChartLine />
+            </div>
+            <h3 className="service-title">Analytics & Insights</h3>
+            <p className="service-desc">
+              Understand trends, drivers of CSAT, and team performance with
+              beautiful, actionable dashboards.
+            </p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">
+              <FaRobot />
+            </div>
+            <h3 className="service-title">AI Summaries</h3>
+            <p className="service-desc">
+              Turn long threads into crisp summaries and next steps your teams
+              can execute on instantly.
+            </p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">
+              <FaHeadset />
+            </div>
+            <h3 className="service-title">Quality Monitoring</h3>
+            <p className="service-desc">
+              Measure tone, resolution, and compliance to coach your agents and
+              uplift customer experience.
+            </p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">
+              <FaLink />
+            </div>
+            <h3 className="service-title">Workflow Automation</h3>
+            <p className="service-desc">
+              Trigger tickets, update CRMs, and sync with your stack—no
+              copy‑paste or manual toil.
+            </p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">
+              <FaShieldAlt />
+            </div>
+            <h3 className="service-title">Security & Privacy</h3>
+            <p className="service-desc">
+              Enterprise‑grade controls, encryption in transit and at rest, and
+              strict data governance.
+            </p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">
+              <FaCog />
+            </div>
+            <h3 className="service-title">Fast Integration</h3>
+            <p className="service-desc">
+              Connect in minutes via API or native connectors. Zero heavy setup,
+              immediate value.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -408,22 +504,84 @@ const StarterPage: React.FC = () => {
           Service Visualisation Flow
         </h1>
         <p className="service-visualisation-desc">
-          This is a placeholder description for the service visualisation flow.
-          You can describe how your services interact or the process flow here.
+          From ingestion to insight and action—see how SatisfAI transforms raw
+          conversations into measurable outcomes.
         </p>
-        <div className="service-visualisation-img-wrapper">
-          <img
-            src="https://via.placeholder.com/500x220?text=Flow+Placeholder"
-            alt="Service Visualisation Flow"
-            className="service-visualisation-img"
-          />
+        <div className="flow-timeline">
+          <div className="flow-step">
+            <div className="flow-badge">1</div>
+            <div className="flow-content">
+              <h4>Connect Channels</h4>
+              <p>
+                Plug in chat, email, social, and voice to unify customer
+                conversations.
+              </p>
+            </div>
+          </div>
+          <div className="flow-connector">
+            <span></span>
+          </div>
+          <div className="flow-step">
+            <div className="flow-badge">2</div>
+            <div className="flow-content">
+              <h4>Analyze & Summarize</h4>
+              <p>
+                Detect topics, sentiment, and root causes—auto‑summarized for
+                speed.
+              </p>
+            </div>
+          </div>
+          <div className="flow-connector">
+            <span></span>
+          </div>
+          <div className="flow-step">
+            <div className="flow-badge">3</div>
+            <div className="flow-content">
+              <h4>Automate Workflows</h4>
+              <p>
+                Trigger tickets and updates in your tools to close the loop
+                faster.
+              </p>
+            </div>
+          </div>
+          <div className="flow-connector">
+            <span></span>
+          </div>
+          <div className="flow-step">
+            <div className="flow-badge">4</div>
+            <div className="flow-content">
+              <h4>Measure Impact</h4>
+              <p>
+                Track CSAT, AHT, and efficiency gains in real‑time, across
+                teams.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Customers Carousel Section */}
       <section className="customers-section">
         <h2 className="customers-title">Customers</h2>
+        <p className="customers-lead">
+          Trusted by teams that move fast and care about CX.
+        </p>
         <CustomersCarousel />
+        <div className="customers-collage">
+          {customerCards.slice(0, 4).map((card) => (
+            <img
+              key={card.title}
+              src={card.img}
+              alt={card.title}
+              className="customers-collage-img"
+            />
+          ))}
+        </div>
+        <div className="customers-badges">
+          <div className="customers-badge">99% Uptime SLA</div>
+          <div className="customers-badge">SOC 2 Ready</div>
+          <div className="customers-badge">GDPR Compliant</div>
+        </div>
       </section>
 
       {/* Break Card Section */}
@@ -475,16 +633,29 @@ const App: React.FC = () => {
 // Carousel component
 const CustomersCarousel: React.FC = () => {
   const [startIdx, setStartIdx] = useState(0);
+  const [motionDir, setMotionDir] = useState<"left" | "right" | "">("");
   const visibleCount = 3;
   const canGoLeft = startIdx > 0;
   const canGoRight = startIdx + visibleCount < customerCards.length;
 
   const handleLeft = () => {
-    if (canGoLeft) setStartIdx(startIdx - 1);
+    if (canGoLeft) {
+      setMotionDir("left");
+      setStartIdx(startIdx - 1);
+    }
   };
   const handleRight = () => {
-    if (canGoRight) setStartIdx(startIdx + 1);
+    if (canGoRight) {
+      setMotionDir("right");
+      setStartIdx(startIdx + 1);
+    }
   };
+
+  useEffect(() => {
+    if (!motionDir) return;
+    const timer = setTimeout(() => setMotionDir(""), 450);
+    return () => clearTimeout(timer);
+  }, [motionDir]);
 
   return (
     <div className="carousel-wrapper">
@@ -493,19 +664,33 @@ const CustomersCarousel: React.FC = () => {
         onClick={handleLeft}
         disabled={!canGoLeft}
       >
-        &lt;
+        <FaChevronLeft
+          className="carousel-arrow-icon"
+          aria-hidden="true"
+          size={22}
+          style={{ width: 22, height: 22, flexShrink: 0 }}
+        />
+        <span className="sr-only">Previous testimonials</span>
       </button>
-      <div className="carousel-cards">
+      <div
+        className={`carousel-cards${motionDir ? ` slide-${motionDir}` : ""}`}
+      >
         {customerCards
           .slice(startIdx, startIdx + visibleCount)
           .map((card, idx) => (
             <div className="customer-card" key={card.title + idx}>
-              <img
-                src={card.img}
-                alt={card.title}
-                className="customer-card-img"
-              />
+              <div className="customer-card-hero">
+                <img
+                  src={card.img}
+                  alt={card.title}
+                  className="customer-card-img"
+                />
+                <img src={card.logo} alt="" className="customer-card-logo" />
+              </div>
+              <span className="customer-card-industry">{card.industry}</span>
               <h1 className="customer-card-title">{card.title}</h1>
+              <p className="customer-card-quote">“{card.quote}”</p>
+              <span className="customer-card-metric">{card.metric}</span>
             </div>
           ))}
       </div>
@@ -514,7 +699,13 @@ const CustomersCarousel: React.FC = () => {
         onClick={handleRight}
         disabled={!canGoRight}
       >
-        &gt;
+        <FaChevronRight
+          className="carousel-arrow-icon"
+          aria-hidden="true"
+          size={22}
+          style={{ width: 22, height: 22, flexShrink: 0 }}
+        />
+        <span className="sr-only">Next testimonials</span>
       </button>
     </div>
   );
