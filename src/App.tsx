@@ -2,10 +2,20 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   LineChart,
   Line,
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  RadialBarChart,
+  RadialBar,
   ResponsiveContainer,
   PieChart,
   Pie,
   Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
 } from "recharts";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
@@ -32,21 +42,46 @@ import screenshot from "./assets/screenshot.PNG";
 import screenshot1 from "./assets/screenshot1.PNG";
 
 const lineData = [
-  { value: 900 },
-  { value: 1050 },
-  { value: 950 },
-  { value: 1200 },
-  { value: 1000 },
-  { value: 1300 },
-  { value: 1158 },
+  { name: "Mon", value: 900 },
+  { name: "Tue", value: 1050 },
+  { name: "Wed", value: 950 },
+  { name: "Thu", value: 1200 },
+  { name: "Fri", value: 1000 },
+  { name: "Sat", value: 1300 },
+  { name: "Sun", value: 1158 },
 ];
+
+const areaData = [
+  { name: "Jan", value: 420 },
+  { name: "Feb", value: 580 },
+  { name: "Mar", value: 650 },
+  { name: "Apr", value: 720 },
+  { name: "May", value: 890 },
+  { name: "Jun", value: 1158 },
+];
+
+const barData = [
+  { name: "Mon", resolved: 245, pending: 32 },
+  { name: "Tue", resolved: 289, pending: 28 },
+  { name: "Wed", resolved: 267, pending: 41 },
+  { name: "Thu", resolved: 312, pending: 25 },
+  { name: "Fri", resolved: 298, pending: 35 },
+];
+
+const radialData = [
+  { name: "Excellent", value: 45, fill: "#3b82f6" },
+  { name: "Good", value: 30, fill: "#60a5fa" },
+  { name: "Average", value: 15, fill: "#93c5fd" },
+  { name: "Poor", value: 10, fill: "#bfdbfe" },
+];
+
 const pieData = [
-  { name: "Orders", value: 32, color: "#2563eb" },
-  { name: "Courier", value: 24, color: "#22c55e" },
-  { name: "Website", value: 18, color: "#f59e42" },
-  { name: "Messages", value: 12, color: "#fbbf24" },
-  { name: "Issues", value: 8, color: "#ef4444" },
-  { name: "Other", value: 6, color: "#64748b" },
+  { name: "Orders", value: 32, color: "#1e40af" },
+  { name: "Courier", value: 24, color: "#2563eb" },
+  { name: "Website", value: 18, color: "#3b82f6" },
+  { name: "Messages", value: 12, color: "#60a5fa" },
+  { name: "Issues", value: 8, color: "#93c5fd" },
+  { name: "Other", value: 6, color: "#bfdbfe" },
 ];
 
 const Dashboard: React.FC = () => {
@@ -77,52 +112,75 @@ const Dashboard: React.FC = () => {
       </header>
       <main className="dashboard-main">
         <section className="dashboard-top">
-          <div className="dashboard-card dashboard-card-lg">
+          <div className="dashboard-card dashboard-card-chart">
             <div className="dashboard-card-title">
-              Chat Session Dynamics - Last 30 Days{" "}
+              Chat Session Dynamics{" "}
               <span className="dashboard-card-green">+24.31%</span>
             </div>
             <ResponsiveContainer width="100%" height={120}>
-              <LineChart
-                data={lineData}
-                margin={{ top: 20, right: 20, left: 0, bottom: 0 }}
-              >
+              <LineChart data={lineData} margin={{ top: 5, right: 5, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.8} />
+                    <stop offset="100%" stopColor="#60a5fa" stopOpacity={0.3} />
+                  </linearGradient>
+                </defs>
                 <Line
                   type="monotone"
                   dataKey="value"
-                  stroke="#2563eb"
-                  strokeWidth={3}
+                  stroke="url(#lineGradient)"
+                  strokeWidth={2.5}
                   dot={false}
+                  strokeLinecap="round"
                 />
               </LineChart>
             </ResponsiveContainer>
-            <div className="dashboard-card-value">1,158 Chats</div>
+            <div className="dashboard-card-value-small">1,158 Chats</div>
           </div>
-          <div className="dashboard-card dashboard-card-lg">
-            <div className="dashboard-card-title">Chat Distribution</div>
-            <div className="dashboard-pie-row">
-              <div className="dashboard-pie-legend">
-                {pieData.map((entry) => (
-                  <div className="dashboard-pie-legend-item" key={entry.name}>
-                    <span
-                      className="dashboard-pie-legend-dot"
-                      style={{ background: entry.color }}
-                    ></span>
-                    <span>{entry.name}</span>
-                    <span className="dashboard-pie-legend-value">
-                      {entry.value}%
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <div className="dashboard-pie-wrapper">
-                <PieChart width={320} height={260}>
+          <div className="dashboard-card dashboard-card-chart">
+            <div className="dashboard-card-title">Growth Trend</div>
+            <ResponsiveContainer width="100%" height={120}>
+              <AreaChart data={areaData} margin={{ top: 5, right: 5, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#60a5fa" stopOpacity={0.6} />
+                    <stop offset="100%" stopColor="#93c5fd" stopOpacity={0.2} />
+                  </linearGradient>
+                </defs>
+                <Area
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#3b82f6"
+                  fill="url(#areaGradient)"
+                  strokeWidth={2}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+            <div className="dashboard-card-value-small">+175% Growth</div>
+          </div>
+          <div className="dashboard-card dashboard-card-chart">
+            <div className="dashboard-card-title">Resolution Status</div>
+            <ResponsiveContainer width="100%" height={120}>
+              <BarChart data={barData} margin={{ top: 5, right: 5, left: 0, bottom: 0 }}>
+                <Bar dataKey="resolved" fill="#2563eb" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="pending" fill="#60a5fa" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+            <div className="dashboard-card-value-small">1,411 Resolved</div>
+          </div>
+        </section>
+        <section className="dashboard-middle">
+          <div className="dashboard-card dashboard-card-pie">
+            <div className="dashboard-card-title">Channel Distribution</div>
+            <div className="dashboard-pie-compact">
+              <ResponsiveContainer width="100%" height={140}>
+                <PieChart>
                   <Pie
                     data={pieData}
-                    cx={160}
-                    cy={130}
-                    innerRadius={90}
-                    outerRadius={120}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={50}
+                    outerRadius={70}
                     dataKey="value"
                     startAngle={90}
                     endAngle={-270}
@@ -132,13 +190,36 @@ const Dashboard: React.FC = () => {
                     ))}
                   </Pie>
                 </PieChart>
-                <div className="dashboard-pie-center">
-                  <div className="dashboard-pie-center-value">49</div>
-                  <div className="dashboard-pie-center-label">Topics</div>
-                </div>
+              </ResponsiveContainer>
+              <div className="dashboard-pie-legend-compact">
+                {pieData.slice(0, 3).map((entry) => (
+                  <div className="dashboard-pie-legend-item-compact" key={entry.name}>
+                    <span
+                      className="dashboard-pie-legend-dot"
+                      style={{ background: entry.color }}
+                    ></span>
+                    <span>{entry.value}%</span>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="dashboard-card-subtitle">Last 30 Days</div>
+          </div>
+          <div className="dashboard-card dashboard-card-radial">
+            <div className="dashboard-card-title">Satisfaction Score</div>
+            <ResponsiveContainer width="100%" height={140}>
+              <RadialBarChart
+                cx="50%"
+                cy="50%"
+                innerRadius="60%"
+                outerRadius="90%"
+                data={radialData}
+                startAngle={90}
+                endAngle={-270}
+              >
+                <RadialBar dataKey="value" cornerRadius={4} />
+              </RadialBarChart>
+            </ResponsiveContainer>
+            <div className="dashboard-card-value-small">84% Avg</div>
           </div>
         </section>
         <section className="dashboard-bottom">
@@ -148,24 +229,29 @@ const Dashboard: React.FC = () => {
             <div className="dashboard-card-green">+12%</div>
           </div>
           <div className="dashboard-card dashboard-card-sm">
-            <div className="dashboard-card-label">Avg. Response Time</div>
-            <div className="dashboard-card-value">00:00:30</div>
-            <div className="dashboard-card-red">-5%</div>
+            <div className="dashboard-card-label">Response Time</div>
+            <div className="dashboard-card-value">00:30</div>
+            <div className="dashboard-card-green">-5%</div>
           </div>
           <div className="dashboard-card dashboard-card-sm">
-            <div className="dashboard-card-label">Avg. Chat Duration</div>
-            <div className="dashboard-card-value">21m 32s</div>
+            <div className="dashboard-card-label">Duration</div>
+            <div className="dashboard-card-value">21m</div>
             <div className="dashboard-card-red">-2%</div>
           </div>
           <div className="dashboard-card dashboard-card-sm">
-            <div className="dashboard-card-label">Satisfaction Rate</div>
+            <div className="dashboard-card-label">Satisfaction</div>
             <div className="dashboard-card-value">84%</div>
-            <div className="dashboard-card-red">-3%</div>
+            <div className="dashboard-card-green">+3%</div>
           </div>
           <div className="dashboard-card dashboard-card-sm">
             <div className="dashboard-card-label">Topics</div>
             <div className="dashboard-card-value">49</div>
-            <div className="dashboard-card-red">-1%</div>
+            <div className="dashboard-card-green">+1%</div>
+          </div>
+          <div className="dashboard-card dashboard-card-sm">
+            <div className="dashboard-card-label">Resolved</div>
+            <div className="dashboard-card-value">1,411</div>
+            <div className="dashboard-card-green">+18%</div>
           </div>
         </section>
       </main>
