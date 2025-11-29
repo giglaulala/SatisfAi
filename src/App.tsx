@@ -36,6 +36,8 @@ import {
   FaCheckCircle,
   FaGlobe,
   FaChevronDown,
+  FaBolt,
+  FaDollarSign,
 } from "react-icons/fa";
 import logo from "./assets/logo.PNG";
 import screenshot from "./assets/screenshot.PNG";
@@ -355,14 +357,6 @@ const StarterPage: React.FC = () => {
       </header>
       <main className="starter-main">
         <div className="starter-content">
-          <h2>
-            Analyze <span style={{ color: "#2563eb" }}>54x</span> faster, with{" "}
-            <span style={{ color: "#2563eb" }}>40%</span> less cost
-          </h2>
-          <p>
-            SatisfAI helps you streamline customer communication and optimize
-            business processes.
-          </p>
           <button
             className="starter-cta-btn-register"
             onClick={() => navigate("/signin")}
@@ -375,6 +369,21 @@ const StarterPage: React.FC = () => {
           >
             Analyse Now
           </button>
+        </div>
+        <div className="animated-background-text-container">
+          <div className="animated-background-text">
+            Analyze{" "}
+            <span className="hero-card-blue">
+              <FaBolt className="hero-icon" />
+              54x
+            </span>{" "}
+            faster, with{" "}
+            <span className="hero-card-green">
+              <FaDollarSign className="hero-icon" />
+              40%
+            </span>{" "}
+            less cost
+          </div>
         </div>
         <div className="starter-illustration">
           <div className="illustration-icon robot">

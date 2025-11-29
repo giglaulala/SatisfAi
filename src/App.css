@@ -485,7 +485,8 @@ body::-webkit-scrollbar {
   background: #fff;
   font-family: "FiraGO", "Arial", sans-serif;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .starter-main {
@@ -496,7 +497,8 @@ body::-webkit-scrollbar {
   min-height: calc(100vh - 80px);
   max-height: calc(100vh - 80px);
   padding: 2rem;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
 }
 
 .starter-content {
@@ -508,9 +510,87 @@ body::-webkit-scrollbar {
   padding-bottom: 6.5rem;
 }
 
-.starter-content h2 {
-  font-size: 2.25rem;
-  margin-bottom: 1rem;
+.animated-background-text-container {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 0;
+  overflow: visible;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.animated-background-text {
+  display: inline-block;
+  font-size: clamp(4rem, 12vw, 12rem);
+  font-weight: 900;
+  color: rgba(37, 99, 235, 0.25);
+  white-space: nowrap;
+  font-family: "FiraGO", "Arial", sans-serif;
+  letter-spacing: -0.02em;
+  padding: 0;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 100vw;
+  animation: moveHorizontal 30s linear infinite;
+  will-change: transform;
+}
+
+@keyframes moveHorizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100vw - 100%));
+  }
+}
+
+.hero-card-blue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+  position: relative;
+  z-index: 3;
+  font-size: 0.8em;
+}
+
+.hero-card-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #10b981;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  position: relative;
+  z-index: 3;
+  font-size: 0.8em;
+}
+
+.hero-icon {
+  font-size: 0.9em;
+  color: #fbbf24;
+}
+
+.hero-card-green .hero-icon {
+  color: white;
+}
+
+.hero-percentage {
+  color: #2563eb;
+  font-weight: 700;
+  position: relative;
+  z-index: 2;
 }
 
 .starter-content p {
@@ -646,8 +726,21 @@ body::-webkit-scrollbar {
   .starter-main {
     flex-direction: column;
   }
-  .starter-content h2 {
-    font-size: 2rem;
+  .animated-background-text {
+    font-size: 4rem;
+    animation: moveHorizontal 25s linear infinite;
+  }
+  .animated-background-text:nth-child(2) {
+    animation: moveHorizontal 25s linear infinite;
+    animation-delay: -12.5s;
+  }
+  .hero-card-blue,
+  .hero-card-green {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75em;
+  }
+  .hero-icon {
+    font-size: 0.85em;
   }
   .starter-content p {
     font-size: 1rem;
@@ -664,6 +757,29 @@ body::-webkit-scrollbar {
   .illustration-icon.robot {
     transform: translateY(0);
     animation: none;
+  }
+  .hero-card-blue {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .animated-background-text {
+    font-size: 2.5rem;
+    animation: moveHorizontal 20s linear infinite;
+  }
+  .animated-background-text:nth-child(2) {
+    animation: moveHorizontal 20s linear infinite;
+    animation-delay: -10s;
+  }
+  .hero-card-blue,
+  .hero-card-green {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7em;
+  }
+  .hero-icon {
+    font-size: 0.8em;
   }
 }
 
