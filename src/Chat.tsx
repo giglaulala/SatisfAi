@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import './Chat.css';
-import { MdMoreHoriz, MdArrowBack, MdInfo } from 'react-icons/md';
+import { MdMoreHoriz, MdArrowBack, MdMood, MdAccessTime, MdTimer, MdLabel, MdCheckCircle, MdPerson, MdTrendingUp } from 'react-icons/md';
 import {
   FaHome,
   FaCommentDots,
@@ -90,36 +90,36 @@ const Chat: React.FC = () => {
     switch (userId) {
       case 2: // ლევან ქავთარაძე
         return [
-          { text: 'განწყობა: დადებითი', color: 'badge-green' },
-          { text: 'საშუალო პასუხის დრო: 1.2წთ', color: 'badge-blue' },
-          { text: 'ჩატის ხანგრძლივობა: 8წთ', color: 'badge-purple' },
-          { text: 'თეგები: ფასები, ინფორმაცია', color: 'badge-orange' },
-          { text: 'აქტიური', color: 'badge-green' },
-          { text: 'მომხმარებელი სერვისში', color: 'badge-blue' },
-          { text: '92%', color: 'badge-green' },
-          { text: '8%', color: 'badge-red' }
+          { icon: <MdMood />, number: 'დადებითი', label: 'განწყობა', color: 'badge-green' },
+          { icon: <MdAccessTime />, number: '1.2', unit: 'წთ', label: 'საშუალო პასუხის დრო', color: 'badge-blue' },
+          { icon: <MdTimer />, number: '8', unit: 'წთ', label: 'ჩატის ხანგრძლივობა', color: 'badge-purple' },
+          { icon: <MdLabel />, number: '2', label: 'თეგები', color: 'badge-orange' },
+          { icon: <MdCheckCircle />, number: 'აქტიური', label: '', color: 'badge-green' },
+          { icon: <MdPerson />, number: 'სერვისში', label: 'მომხმარებელი', color: 'badge-blue' },
+          { icon: <MdTrendingUp />, number: '92', unit: '%', label: '', color: 'badge-green' },
+          { icon: <MdTrendingUp />, number: '8', unit: '%', label: '', color: 'badge-red' }
         ];
       case 3: // მარიამ დვალიშვილი
         return [
-          { text: 'განწყობა: ნეგატიური', color: 'badge-red' },
-          { text: 'საშუალო პასუხის დრო: 3.8წთ', color: 'badge-blue' },
-          { text: 'ჩატის ხანგრძლივობა: 22წთ', color: 'badge-purple' },
-          { text: 'თეგები: პრობლემა, შეკვეთა', color: 'badge-orange' },
-          { text: 'აქტიური', color: 'badge-green' },
-          { text: 'მომხმარებელი სერვისში', color: 'badge-blue' },
-          { text: '45%', color: 'badge-red' },
-          { text: '55%', color: 'badge-red' }
+          { icon: <MdMood />, number: 'ნეგატიური', label: 'განწყობა', color: 'badge-red' },
+          { icon: <MdAccessTime />, number: '3.8', unit: 'წთ', label: 'საშუალო პასუხის დრო', color: 'badge-blue' },
+          { icon: <MdTimer />, number: '22', unit: 'წთ', label: 'ჩატის ხანგრძლივობა', color: 'badge-purple' },
+          { icon: <MdLabel />, number: '2', label: 'თეგები', color: 'badge-orange' },
+          { icon: <MdCheckCircle />, number: 'აქტიური', label: '', color: 'badge-green' },
+          { icon: <MdPerson />, number: 'სერვისში', label: 'მომხმარებელი', color: 'badge-blue' },
+          { icon: <MdTrendingUp />, number: '45', unit: '%', label: '', color: 'badge-red' },
+          { icon: <MdTrendingUp />, number: '55', unit: '%', label: '', color: 'badge-red' }
         ];
       default:
         return [
-          { text: 'განწყობა: დადებითი', color: 'badge-green' },
-          { text: 'საშუალო პასუხის დრო: 2.3წთ', color: 'badge-blue' },
-          { text: 'ჩატის ხანგრძლივობა: 15წთ', color: 'badge-purple' },
-          { text: 'თეგები: შეკვეთა, პრობლემა', color: 'badge-orange' },
-          { text: 'აქტიური', color: 'badge-green' },
-          { text: 'მომხმარებელი სერვისში', color: 'badge-blue' },
-          { text: '78%', color: 'badge-green' },
-          { text: '22%', color: 'badge-red' }
+          { icon: <MdMood />, number: 'დადებითი', label: 'განწყობა', color: 'badge-green' },
+          { icon: <MdAccessTime />, number: '2.3', unit: 'წთ', label: 'საშუალო პასუხის დრო', color: 'badge-blue' },
+          { icon: <MdTimer />, number: '15', unit: 'წთ', label: 'ჩატის ხანგრძლივობა', color: 'badge-purple' },
+          { icon: <MdLabel />, number: '2', label: 'თეგები', color: 'badge-orange' },
+          { icon: <MdCheckCircle />, number: 'აქტიური', label: '', color: 'badge-green' },
+          { icon: <MdPerson />, number: 'სერვისში', label: 'მომხმარებელი', color: 'badge-blue' },
+          { icon: <MdTrendingUp />, number: '78', unit: '%', label: '', color: 'badge-green' },
+          { icon: <MdTrendingUp />, number: '22', unit: '%', label: '', color: 'badge-red' }
         ];
     }
   };
@@ -265,16 +265,6 @@ const Chat: React.FC = () => {
 
       {/* Main Chat Area */}
       <div className="chat-main-area">
-        {/* Header */}
-        <header className="chat-header">
-          <img src={logo} alt="SatisfAI" className="chat-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }} />
-          <div className="chat-status-badges">
-            {getHeaderBadges(selectedUser.id).map((badge, index) => (
-              <span key={index} className={`badge ${badge.color}`}>{badge.text}</span>
-            ))}
-          </div>
-          <MdInfo className="chat-info-icon" title="ინფორმაცია" />
-        </header>
         {/* Chat Summary on border line */}
         <div className="chat-summary-bar">
           <span className="chat-summary-text">მოთხოვნა ვერ დაკმაყოფილდა, არასაკმარისი პროდუქტი</span>
@@ -319,7 +309,28 @@ const Chat: React.FC = () => {
             <span className="icon-more" title="მეტი">⋯</span>
           </div>
         </div>
-    </div>
+      </div>
+
+      {/* Right Sidebar - Header Section */}
+      <aside className="chat-right-sidebar">
+        <header className="chat-header">
+          <img src={logo} alt="SatisfAI" className="chat-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }} />
+          <div className="chat-status-badges">
+            {getHeaderBadges(selectedUser.id).map((badge, index) => (
+              <div key={index} className={`badge-cube ${badge.color}`}>
+                <div className="badge-icon">{badge.icon}</div>
+                <div className="badge-content">
+                  <div className="badge-number">
+                    {badge.number}
+                    {badge.unit && <span className="badge-unit">{badge.unit}</span>}
+                  </div>
+                  {badge.label && <div className="badge-label">{badge.label}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </header>
+      </aside>
     </div>
   );
 };

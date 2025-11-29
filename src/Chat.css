@@ -163,17 +163,32 @@
   flex-direction: column;
 }
 
+/* Right Sidebar */
+.chat-right-sidebar {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-left: 1px solid #e0e0e0;
+  height: 100vh;
+  overflow: hidden;
+}
+
 /* Header */
 .chat-header {
-  padding: 20px 24px;
+  padding: 0;
+  padding-left: 5px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  background: linear-gradient(180deg, #1976D2 0%, #1565C0 100%);
   color: white;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 10;
+  height: 100%;
+  min-height: 0;
 }
 .chat-header::before {
   content: '';
@@ -182,104 +197,160 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
   pointer-events: none;
 }
 .chat-logo {
-  font-size: 24px;
-  font-weight: bold;
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 8px;
   position: relative;
   z-index: 1;
-}
-.chat-info-icon {
-  font-size: 40px;
-  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-  z-index: 1;
-  margin-left: 16px;
-}
-.chat-info-icon:hover {
-  color: #ffffff;
-  transform: scale(1.1);
+  flex-shrink: 0;
 }
 .chat-status-badges {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-left: 20px;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  width: 100%;
+  flex: 1;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(25, 118, 210, 0.3) transparent;
+  min-height: 0;
 }
-.badge {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: all 0.2s ease;
+.chat-status-badges::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-status-badges::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-status-badges::-webkit-scrollbar-thumb {
+  background-color: rgba(25, 118, 210, 0.3);
+  border-radius: 3px;
+}
+.chat-status-badges::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(25, 118, 210, 0.5);
+}
+.badge-cube {
+  width: 100%;
+  min-height: 120px;
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 
+              0 4px 8px rgba(0, 0, 0, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
+  transform-style: preserve-3d;
 }
-.badge::before {
+.badge-cube::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
   pointer-events: none;
+  border-radius: 16px;
 }
-.badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+.badge-cube::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 4px;
+  right: 4px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 16px 16px;
+  transform: translateZ(-4px);
+  filter: blur(2px);
 }
-.badge-green {
-  background: linear-gradient(135deg, rgba(96, 165, 250, 0.4) 0%, rgba(59, 130, 246, 0.5) 100%);
+.badge-cube:hover {
+  transform: translateY(-4px) translateZ(8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 
+              0 6px 12px rgba(0, 0, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.badge-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+.badge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+.badge-number {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.badge-unit {
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.badge-label {
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+.badge-cube.badge-green {
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.5) 0%, rgba(59, 130, 246, 0.6) 100%);
   color: #ffffff;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
-.badge-blue {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.5) 0%, rgba(37, 99, 235, 0.6) 100%);
+.badge-cube.badge-blue {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.6) 0%, rgba(37, 99, 235, 0.7) 100%);
   color: #ffffff;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
-.badge-red {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.6) 0%, rgba(29, 78, 216, 0.7) 100%);
+.badge-cube.badge-red {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.7) 0%, rgba(29, 78, 216, 0.8) 100%);
   color: #ffffff;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
-.badge-purple {
-  background: linear-gradient(135deg, rgba(147, 197, 253, 0.35) 0%, rgba(96, 165, 250, 0.45) 100%);
+.badge-cube.badge-purple {
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0.45) 0%, rgba(96, 165, 250, 0.55) 100%);
   color: #ffffff;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
-.badge-orange {
-  background: linear-gradient(135deg, rgba(129, 140, 248, 0.4) 0%, rgba(99, 102, 241, 0.5) 100%);
+.badge-cube.badge-orange {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.5) 0%, rgba(99, 102, 241, 0.6) 100%);
   color: #ffffff;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
-.badge-cyan {
-  background: linear-gradient(135deg, rgba(191, 219, 254, 0.3) 0%, rgba(147, 197, 253, 0.4) 100%);
+.badge-cube.badge-cyan {
+  background: linear-gradient(135deg, rgba(191, 219, 254, 0.4) 0%, rgba(147, 197, 253, 0.5) 100%);
   color: #ffffff;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
-.badge-indigo {
-  background: linear-gradient(135deg, rgba(29, 78, 216, 0.65) 0%, rgba(30, 64, 175, 0.75) 100%);
+.badge-cube.badge-indigo {
+  background: linear-gradient(135deg, rgba(29, 78, 216, 0.75) 0%, rgba(30, 64, 175, 0.85) 100%);
   color: #ffffff;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 /* Chat Window */
@@ -392,6 +463,34 @@
     flex: 1;
   }
 
+  .chat-right-sidebar {
+    width: 100%;
+    height: auto;
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .chat-header {
+    padding: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+    min-height: auto;
+  }
+
+  .chat-status-badges {
+    flex-direction: row;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex: 0;
+    margin-left: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0;
+  }
+
   .chat-header, .chat-input-row {
     padding: 12px 16px;
   }
@@ -400,16 +499,29 @@
     height: calc(100vh - 400px);
   }
   
-  .chat-status-badges {
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
+  .badge-cube {
+    min-height: 100px;
+    padding: 16px;
+    width: auto;
+    min-width: 140px;
+    flex: 0 0 auto;
   }
-  
-  .badge {
-    padding: 4px 8px;
+
+  .badge-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .badge-number {
+    font-size: 24px;
+  }
+
+  .badge-unit {
+    font-size: 16px;
+  }
+
+  .badge-label {
     font-size: 10px;
-    border-radius: 16px;
   }
 }
 
@@ -417,19 +529,42 @@
   .chat-header {
     flex-direction: column;
     gap: 12px;
-    padding: 16px;
+    padding: 0;
+    height: auto;
+    min-height: auto;
   }
   
   .chat-status-badges {
-    gap: 6px;
+    gap: 8px;
     justify-content: center;
     width: 100%;
+    margin-left: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0;
   }
   
-  .badge {
-    padding: 3px 6px;
+  .badge-cube {
+    min-height: 90px;
+    padding: 12px;
+    min-width: 120px;
+  }
+
+  .badge-icon {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .badge-number {
+    font-size: 20px;
+  }
+
+  .badge-unit {
+    font-size: 14px;
+  }
+
+  .badge-label {
     font-size: 9px;
-    border-radius: 12px;
   }
 }
 
