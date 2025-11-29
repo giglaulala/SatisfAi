@@ -180,7 +180,7 @@ const Contact: React.FC = () => {
           </p>
           <p className="contact-form-info-note">
             Prefer a call? Book time directly via{" "}
-            <span onClick={() => navigate("/register")}>Calendly</span>.
+            <span onClick={() => navigate("/signin")}>Calendly</span>.
           </p>
         </div>
         <form className="contact-form" onSubmit={handleSubmit}>
@@ -247,7 +247,7 @@ const Contact: React.FC = () => {
         <div className="contact-footer-links">
           <span onClick={() => navigate("/")}>Home</span>
           <span onClick={() => navigate("/dashboard")}>Demo</span>
-          <span onClick={() => navigate("/register")}>Register</span>
+          <span onClick={() => navigate("/signin")}>Sign In</span>
         </div>
       </footer>
     </div>

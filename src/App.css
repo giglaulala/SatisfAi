@@ -1683,12 +1683,53 @@ body::-webkit-scrollbar {
   max-width: 400px;
 }
 
+.signin-mode-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.signin-mode-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #64748b;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.signin-mode-btn.active {
+  background: white;
+  color: #2563eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.signin-mode-btn:not(.active):hover {
+  color: #2563eb;
+}
+
 .signin-title {
   font-size: 2.5rem;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 32px;
   text-align: center;
+}
+
+.signin-form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.signin-form-group-half {
+  flex: 1;
 }
 
 .signin-user-type {
@@ -1871,6 +1912,11 @@ body::-webkit-scrollbar {
 
   .signin-title {
     font-size: 2rem;
+  }
+
+  .signin-form-row {
+    flex-direction: column;
+    gap: 0;
   }
 
   .signin-user-type {

@@ -10,7 +10,6 @@ import {
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import Chat from "./Chat";
-import Register from "./Register";
 import SignIn from "./SignIn";
 import Profile from "./Profile";
 import Contact from "./Contact";
@@ -27,8 +26,6 @@ import {
   FaCheckCircle,
   FaGlobe,
   FaChevronDown,
-  FaChevronLeft,
-  FaChevronRight,
 } from "react-icons/fa";
 import logo from "./assets/logo.PNG";
 import screenshot from "./assets/screenshot.PNG";
@@ -50,54 +47,6 @@ const pieData = [
   { name: "Messages", value: 12, color: "#fbbf24" },
   { name: "Issues", value: 8, color: "#ef4444" },
   { name: "Other", value: 6, color: "#64748b" },
-];
-
-const customerCards = [
-  {
-    img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80",
-    logo: "https://logo.clearbit.com/intercom.com",
-    title: "Intercom CX",
-    industry: "SaaS Support",
-    quote:
-      "Our managers can spot trends in minutes instead of digging through raw chat logs.",
-    metric: "37% faster resolution",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=600&q=80",
-    logo: "https://logo.clearbit.com/shopify.com",
-    title: "Shopify Plus",
-    industry: "E‑commerce Ops",
-    quote:
-      "SatisfAI gave us instant voice-of-customer insights for every launch.",
-    metric: "+18 pts CSAT",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80",
-    logo: "https://logo.clearbit.com/notion.so",
-    title: "Notion Crew",
-    industry: "Community",
-    quote:
-      "Topic clustering and AI summaries keep our small team highly leveraged.",
-    metric: "4h/day saved",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=600&q=80",
-    logo: "https://logo.clearbit.com/airbnb.com",
-    title: "Airbnb Hosts",
-    industry: "Marketplace Trust",
-    quote:
-      "Escalations dropped after we automated routing workflows via SatisfAI.",
-    metric: "−22% escalations",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80",
-    logo: "https://logo.clearbit.com/peloton.com",
-    title: "Peloton Care",
-    industry: "Consumer Hardware",
-    quote:
-      "We finally have real-time visibility into sentiment across channels.",
-    metric: "Single source of truth",
-  },
 ];
 
 const Dashboard: React.FC = () => {
@@ -330,7 +279,7 @@ const StarterPage: React.FC = () => {
           </p>
           <button
             className="starter-cta-btn-register"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/signin")}
           >
             Register Now
           </button>
@@ -562,30 +511,6 @@ const StarterPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Customers Carousel Section */}
-      <section className="customers-section">
-        <h2 className="customers-title">Customers</h2>
-        <p className="customers-lead">
-          Trusted by teams that move fast and care about CX.
-        </p>
-        <CustomersCarousel />
-        <div className="customers-collage">
-          {customerCards.slice(0, 4).map((card) => (
-            <img
-              key={card.title}
-              src={card.img}
-              alt={card.title}
-              className="customers-collage-img"
-            />
-          ))}
-        </div>
-        <div className="customers-badges">
-          <div className="customers-badge">99% Uptime SLA</div>
-          <div className="customers-badge">SOC 2 Ready</div>
-          <div className="customers-badge">GDPR Compliant</div>
-        </div>
-      </section>
-
       {/* Break Card Section */}
       <section className="break-card-section">
         <div className="break-card-bg">
@@ -624,94 +549,12 @@ const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<StarterPage />} />
-      <Route path="/register" element={<Register />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/chat" element={<Chat />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/contact" element={<Contact />} />
     </Routes>
-  );
-};
-
-// Carousel component
-const CustomersCarousel: React.FC = () => {
-  const [startIdx, setStartIdx] = useState(0);
-  const [motionDir, setMotionDir] = useState<"left" | "right" | "">("");
-  const visibleCount = 3;
-  const canGoLeft = startIdx > 0;
-  const canGoRight = startIdx + visibleCount < customerCards.length;
-
-  const handleLeft = () => {
-    if (canGoLeft) {
-      setMotionDir("left");
-      setStartIdx(startIdx - 1);
-    }
-  };
-  const handleRight = () => {
-    if (canGoRight) {
-      setMotionDir("right");
-      setStartIdx(startIdx + 1);
-    }
-  };
-
-  useEffect(() => {
-    if (!motionDir) return;
-    const timer = setTimeout(() => setMotionDir(""), 450);
-    return () => clearTimeout(timer);
-  }, [motionDir]);
-
-  return (
-    <div className="carousel-wrapper">
-      <button
-        className="carousel-arrow"
-        onClick={handleLeft}
-        disabled={!canGoLeft}
-      >
-        <FaChevronLeft
-          className="carousel-arrow-icon"
-          aria-hidden="true"
-          size={22}
-          style={{ width: 22, height: 22, flexShrink: 0 }}
-        />
-        <span className="sr-only">Previous testimonials</span>
-      </button>
-      <div
-        className={`carousel-cards${motionDir ? ` slide-${motionDir}` : ""}`}
-      >
-        {customerCards
-          .slice(startIdx, startIdx + visibleCount)
-          .map((card, idx) => (
-            <div className="customer-card" key={card.title + idx}>
-              <div className="customer-card-hero">
-                <img
-                  src={card.img}
-                  alt={card.title}
-                  className="customer-card-img"
-                />
-                <img src={card.logo} alt="" className="customer-card-logo" />
-              </div>
-              <span className="customer-card-industry">{card.industry}</span>
-              <h1 className="customer-card-title">{card.title}</h1>
-              <p className="customer-card-quote">“{card.quote}”</p>
-              <span className="customer-card-metric">{card.metric}</span>
-            </div>
-          ))}
-      </div>
-      <button
-        className="carousel-arrow"
-        onClick={handleRight}
-        disabled={!canGoRight}
-      >
-        <FaChevronRight
-          className="carousel-arrow-icon"
-          aria-hidden="true"
-          size={22}
-          style={{ width: 22, height: 22, flexShrink: 0 }}
-        />
-        <span className="sr-only">Next testimonials</span>
-      </button>
-    </div>
   );
 };
 
