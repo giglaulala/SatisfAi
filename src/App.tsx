@@ -341,13 +341,6 @@ const StarterPage: React.FC = () => {
             )}
           </div>
           <button
-            className="dashboard-header-btn"
-            onClick={() => navigate("/dashboard")}
-          >
-            <FaRocket style={{ marginRight: 8, verticalAlign: "middle" }} />
-            Try Demo
-          </button>
-          <button
             className="dashboard-header-btn signin-header-btn"
             onClick={() => navigate("/signin")}
           >
