@@ -6,7 +6,6 @@ import { MdMoreHoriz, MdArrowBack, MdInfo } from 'react-icons/md';
 import {
   FaHome,
   FaCommentDots,
-  FaUsers,
   FaChartPie,
   FaCog,
 } from 'react-icons/fa';
@@ -62,7 +61,6 @@ const mariamMessages = [
 const demoSidebarItems = [
   { icon: <FaHome />, label: 'Home', active: true },
   { icon: <FaCommentDots />, label: 'Messages' },
-  { icon: <FaUsers />, label: 'Users' },
   { icon: <FaChartPie />, label: 'Dashboard' },
   { icon: <FaCog />, label: 'Settings' },
 ];
