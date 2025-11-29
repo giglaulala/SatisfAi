@@ -185,7 +185,7 @@ const Chat: React.FC = () => {
               <button
                 className="back-button"
                 onClick={handleBackClick}
-                aria-pressed={sidebarMode === 'navigation'}
+                aria-pressed={false}
                 title="Show navigation"
               >
                 <MdArrowBack />
