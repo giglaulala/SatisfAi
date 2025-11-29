@@ -148,11 +148,6 @@ const SignIn: React.FC = () => {
           <div className="signin-logo">
             <img src={logo} alt="SatisfAI Logo" className="signin-logo-img" />
           </div>
-          <div className="signin-nav-links">
-            <span>Home</span>
-            <span>Product</span>
-            <span>Service</span>
-          </div>
           <div className="signin-nav-right">
             <div className="language-selector" ref={languageSelectorRef}>
               <button

@@ -140,6 +140,18 @@ body::-webkit-scrollbar {
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
   margin-bottom: 0;
 }
+.dashboard-bg .dashboard-header-right .dashboard-header-btn {
+  background: white;
+  color: #2563eb;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.dashboard-bg .dashboard-header-right .dashboard-header-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
 .dashboard-header-btn:hover {
   background: rgba(37, 99, 235, 0.4);
   border-color: rgba(37, 99, 235, 0.7);
