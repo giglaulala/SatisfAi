@@ -12,10 +12,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
 } from "recharts";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";

@@ -156,6 +156,7 @@ const Contact: React.FC = () => {
                   </div>
                 </div>
               ) : (
+                typeof item === "object" && item !== null && "title" in item ? (
                 <div className="contact-card" key={`${item.title}-${index}`}>
                   <p className="contact-card-label">{item.title}</p>
                   <h3>{item.address}</h3>
@@ -165,6 +166,7 @@ const Contact: React.FC = () => {
                     and customer empathy labs every quarter.
                   </p>
                 </div>
+                ) : null
               )
             )}
           </div>
