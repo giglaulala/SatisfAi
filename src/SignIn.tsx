@@ -141,7 +141,12 @@ const SignIn: React.FC = () => {
                 </div>
               )}
             </div>
-            <button className="signin-contact-btn">Contact Now</button>
+            <button
+              className="signin-contact-btn"
+              onClick={() => navigate("/contact")}
+            >
+              Contact Now
+            </button>
           </div>
         </div>
         <div className="signin-overlay">
