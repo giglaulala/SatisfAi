@@ -263,6 +263,7 @@ const StarterPage: React.FC = () => {
   const navigate = useNavigate();
   const [selectedLanguage, setSelectedLanguage] = useState("EN");
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
   const languageSelectorRef = useRef<HTMLDivElement>(null);
 
   const languages = [
@@ -293,6 +294,57 @@ const StarterPage: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const headerHeight = document.querySelector(".dashboard-header")?.getBoundingClientRect().height || 80;
+      const sections = [
+        { id: "hero", element: document.querySelector(".starter-main") },
+        { id: "capabilities", element: document.querySelector("#capabilities") },
+        { id: "services", element: document.querySelector("#services") },
+        { id: "how-it-works", element: document.querySelector("#how-it-works") },
+        { id: "faq", element: document.querySelector("#faq") },
+      ];
+
+      const scrollPosition = window.scrollY + headerHeight + 50;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section.element) {
+          const rect = section.element.getBoundingClientRect();
+          const elementTop = rect.top + window.scrollY;
+          if (scrollPosition >= elementTop) {
+            setActiveSection(section.id);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Check on mount
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    let element: HTMLElement | null = null;
+    if (sectionId === "hero") {
+      element = document.querySelector(".starter-main") as HTMLElement;
+    } else {
+      element = document.querySelector(`#${sectionId}`) as HTMLElement;
+    }
+    if (element) {
+      const headerHeight = document.querySelector(".dashboard-header")?.getBoundingClientRect().height || 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerHeight;
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: "smooth",
+      });
+      // Update active section immediately
+      setActiveSection(sectionId);
+    }
+  };
+
   return (
     <div className="starter-page">
       <header className="dashboard-header">
@@ -305,6 +357,38 @@ const StarterPage: React.FC = () => {
             <img src={logo} alt="SatisfAI Logo" className="logo-image" />
           </div>
         </div>
+        <nav className="section-nav-inline">
+          <button
+            className={`section-nav-item ${activeSection === "hero" ? "active" : ""}`}
+            onClick={() => scrollToSection("hero")}
+          >
+            Home
+          </button>
+          <button
+            className={`section-nav-item ${activeSection === "capabilities" ? "active" : ""}`}
+            onClick={() => scrollToSection("capabilities")}
+          >
+            Capabilities
+          </button>
+          <button
+            className={`section-nav-item ${activeSection === "services" ? "active" : ""}`}
+            onClick={() => scrollToSection("services")}
+          >
+            Services
+          </button>
+          <button
+            className={`section-nav-item ${activeSection === "how-it-works" ? "active" : ""}`}
+            onClick={() => scrollToSection("how-it-works")}
+          >
+            How It Works
+          </button>
+          <button
+            className={`section-nav-item ${activeSection === "faq" ? "active" : ""}`}
+            onClick={() => scrollToSection("faq")}
+          >
+            FAQ
+          </button>
+        </nav>
         <div className="dashboard-header-right">
           <div className="language-selector" ref={languageSelectorRef}>
             <button
@@ -386,7 +470,7 @@ const StarterPage: React.FC = () => {
           </div>
         </div>
       </main>
-      <section className="capabilities-section">
+      <section id="capabilities" className="capabilities-section">
         <h2>What SatisfAI is Capable Of</h2>
         <div className="feature-icons-container">
           <div className="feature-icon-item">
@@ -460,7 +544,7 @@ const StarterPage: React.FC = () => {
       </section>
 
       {/* Services Section */}
-      <section className="services-section">
+      <section id="services" className="services-section">
         <h2 className="services-title">Services</h2>
         <p className="services-lead">
           Everything you need to analyze, automate, and improve customer
@@ -531,7 +615,7 @@ const StarterPage: React.FC = () => {
       </section>
 
       {/* Service Visualisation Flow Section */}
-      <section className="service-visualisation-section">
+      <section id="how-it-works" className="service-visualisation-section">
         <h1 className="service-visualisation-title">
           Service Visualisation Flow
         </h1>
@@ -612,7 +696,7 @@ const StarterPage: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="faq-section">
+      <section id="faq" className="faq-section">
         <h2 className="faq-title">FAQ</h2>
         <FAQAccordion />
       </section>
