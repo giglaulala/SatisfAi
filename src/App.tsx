@@ -34,6 +34,8 @@ import {
   FaChevronDown,
   FaHourglassHalf,
   FaDollarSign,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
 import logo from "./assets/logo.PNG";
 import screenshot from "./assets/screenshot.PNG";
@@ -276,6 +278,7 @@ const StarterPage: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("EN");
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const languageSelectorRef = useRef<HTMLDivElement>(null);
 
   const languages = [
@@ -306,13 +309,31 @@ const StarterPage: React.FC = () => {
     };
   }, []);
 
+  // Close language dropdown when mobile menu closes
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      setIsLanguageDropdownOpen(false);
+    }
+  }, [isMobileMenuOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   useEffect(() => {
     const handleScroll = () => {
       const headerHeight =
         document.querySelector(".dashboard-header")?.getBoundingClientRect()
           .height || 80;
       const scrollY = window.scrollY;
-      const viewportHeight = window.innerHeight;
 
       // Check if we're at the top (hero section)
       if (scrollY < 100) {
@@ -398,6 +419,9 @@ const StarterPage: React.FC = () => {
     e.preventDefault();
     e.stopPropagation();
 
+    // Close mobile menu when a section is clicked
+    setIsMobileMenuOpen(false);
+
     if (sectionId === "hero") {
       window.scrollTo({
         top: 0,
@@ -480,6 +504,13 @@ const StarterPage: React.FC = () => {
           </button>
         </nav>
         <div className="dashboard-header-right">
+          <button
+            className="mobile-menu-toggle"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
           <div className="language-selector" ref={languageSelectorRef}>
             <button
               className="language-selector-btn dashboard-header-btn"
@@ -517,6 +548,107 @@ const StarterPage: React.FC = () => {
           </button>
         </div>
       </header>
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`mobile-menu-overlay ${isMobileMenuOpen ? "open" : ""}`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      >
+        <nav className="mobile-menu" onClick={(e) => e.stopPropagation()}>
+          <div className="mobile-menu-header">
+            <img src={logo} alt="SatisfAI Logo" className="mobile-menu-logo" />
+            <button
+              className="mobile-menu-close"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <FaTimes />
+            </button>
+          </div>
+          <button
+            className={`mobile-menu-item ${
+              activeSection === "hero" ? "active" : ""
+            }`}
+            onClick={(e) => scrollToSection(e, "hero")}
+          >
+            Home
+          </button>
+          <button
+            className={`mobile-menu-item ${
+              activeSection === "capabilities" ? "active" : ""
+            }`}
+            onClick={(e) => scrollToSection(e, "capabilities")}
+          >
+            Capabilities
+          </button>
+          <button
+            className={`mobile-menu-item ${
+              activeSection === "services" ? "active" : ""
+            }`}
+            onClick={(e) => scrollToSection(e, "services")}
+          >
+            Services
+          </button>
+          <button
+            className={`mobile-menu-item ${
+              activeSection === "how-it-works" ? "active" : ""
+            }`}
+            onClick={(e) => scrollToSection(e, "how-it-works")}
+          >
+            How It Works
+          </button>
+          <button
+            className={`mobile-menu-item ${
+              activeSection === "faq" ? "active" : ""
+            }`}
+            onClick={(e) => scrollToSection(e, "faq")}
+          >
+            FAQ
+          </button>
+          <div className="mobile-menu-divider"></div>
+          <div className="mobile-menu-actions">
+            <div className="mobile-language-selector" ref={languageSelectorRef}>
+              <button
+                className="mobile-language-btn"
+                onClick={() =>
+                  setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
+                }
+              >
+                <FaGlobe className="mobile-language-icon" />
+                <span>{selectedLanguage}</span>
+                <FaChevronDown
+                  className={`mobile-language-chevron ${
+                    isLanguageDropdownOpen ? "rotated" : ""
+                  }`}
+                />
+              </button>
+              {isLanguageDropdownOpen && (
+                <div className="mobile-language-dropdown">
+                  {languages.map((language) => (
+                    <button
+                      key={language.code}
+                      className={`mobile-language-option ${
+                        selectedLanguage === language.code ? "selected" : ""
+                      }`}
+                      onClick={() => handleLanguageSelect(language.code)}
+                    >
+                      {language.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <button
+              className="mobile-signin-btn"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                navigate("/signin");
+              }}
+            >
+              Sign In
+            </button>
+          </div>
+        </nav>
+      </div>
       <main className="starter-main">
         <div className="starter-content">
           <div className="starter-tagline">
