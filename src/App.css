@@ -764,6 +764,7 @@ body::-webkit-scrollbar {
   background: transparent;
   color: #64748b;
   border: none;
+  outline: none;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 500;
@@ -773,6 +774,15 @@ body::-webkit-scrollbar {
   transition: all 0.2s ease;
   white-space: nowrap;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.section-nav-item:focus,
+.section-nav-item:active,
+.section-nav-item:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .section-nav-item:hover {
@@ -1342,6 +1352,7 @@ body::-webkit-scrollbar {
   text-align: center;
   position: relative;
   overflow: hidden;
+  scroll-margin-top: 100px;
 }
 
 .feature-icons-container {
@@ -1819,6 +1830,7 @@ body::-webkit-scrollbar {
   background: #f8fafc;
   padding: 60px 0 40px 0;
   text-align: center;
+  scroll-margin-top: 100px;
 }
 .services-title {
   font-size: 2.5rem;
@@ -1930,6 +1942,7 @@ body::-webkit-scrollbar {
   padding: 60px 0 40px 0;
   text-align: center;
   border-top: 1px solid #e2e8f0;
+  scroll-margin-top: 100px;
 }
 .service-visualisation-title {
   font-size: 2.3rem;
@@ -2790,6 +2803,11 @@ body::-webkit-scrollbar {
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
   background: white;
+  color: #0f172a;
+}
+
+.signin-input::placeholder {
+  color: #94a3b8;
 }
 
 .signin-input:focus {
@@ -2973,6 +2991,7 @@ body::-webkit-scrollbar {
   padding: 60px 0 40px 0;
   text-align: center;
   border-top: 1px solid #e2e8f0;
+  scroll-margin-top: 100px;
 }
 .faq-title {
   font-size: 2.5rem;

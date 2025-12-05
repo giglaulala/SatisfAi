@@ -297,6 +297,15 @@ const StarterPage: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const headerHeight = document.querySelector(".dashboard-header")?.getBoundingClientRect().height || 80;
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      
+      // Check if we're at the top (hero section)
+      if (scrollY < 100) {
+        setActiveSection("hero");
+        return;
+      }
+
       const sections = [
         { id: "hero", element: document.querySelector(".starter-main") },
         { id: "capabilities", element: document.querySelector("#capabilities") },
@@ -305,44 +314,89 @@ const StarterPage: React.FC = () => {
         { id: "faq", element: document.querySelector("#faq") },
       ];
 
-      const scrollPosition = window.scrollY + headerHeight + 50;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
+      // Find which section is currently in view
+      let currentSection = "hero";
+      
+      for (let i = 0; i < sections.length; i++) {
         const section = sections[i];
         if (section.element) {
           const rect = section.element.getBoundingClientRect();
-          const elementTop = rect.top + window.scrollY;
-          if (scrollPosition >= elementTop) {
-            setActiveSection(section.id);
+          const sectionTop = rect.top + scrollY;
+          const sectionBottom = sectionTop + rect.height;
+          
+          // Check if section is in viewport (with offset for header)
+          if (scrollY + headerHeight + 100 >= sectionTop && scrollY + headerHeight + 100 < sectionBottom) {
+            currentSection = section.id;
             break;
           }
         }
       }
+
+      // Fallback: find the section we've scrolled past
+      if (currentSection === "hero") {
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const section = sections[i];
+          if (section.element) {
+            const rect = section.element.getBoundingClientRect();
+            const sectionTop = rect.top + scrollY;
+            if (scrollY + headerHeight + 50 >= sectionTop) {
+              currentSection = section.id;
+              break;
+            }
+          }
+        }
+      }
+
+      setActiveSection(currentSection);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Throttle scroll events for better performance
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", throttledHandleScroll, { passive: true });
     handleScroll(); // Check on mount
-    return () => window.removeEventListener("scroll", handleScroll);
+    
+    return () => window.removeEventListener("scroll", throttledHandleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    let element: HTMLElement | null = null;
+  const scrollToSection = (e: React.MouseEvent<HTMLButtonElement>, sectionId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     if (sectionId === "hero") {
-      element = document.querySelector(".starter-main") as HTMLElement;
-    } else {
-      element = document.querySelector(`#${sectionId}`) as HTMLElement;
-    }
-    if (element) {
-      const headerHeight = document.querySelector(".dashboard-header")?.getBoundingClientRect().height || 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerHeight;
       window.scrollTo({
-        top: Math.max(0, offsetPosition),
+        top: 0,
         behavior: "smooth",
       });
-      // Update active section immediately
-      setActiveSection(sectionId);
+      setActiveSection("hero");
+      return;
     }
+    
+    // Use getElementById - the IDs are confirmed to exist
+    const element = document.getElementById(sectionId);
+    
+    if (!element) {
+      console.error(`Section "${sectionId}" not found`);
+      return;
+    }
+    
+    // Use scrollIntoView which respects scroll-margin-top CSS property
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+    
+    // Update active section immediately
+    setActiveSection(sectionId);
   };
 
   return (
@@ -360,31 +414,31 @@ const StarterPage: React.FC = () => {
         <nav className="section-nav-inline">
           <button
             className={`section-nav-item ${activeSection === "hero" ? "active" : ""}`}
-            onClick={() => scrollToSection("hero")}
+            onClick={(e) => scrollToSection(e, "hero")}
           >
             Home
           </button>
           <button
             className={`section-nav-item ${activeSection === "capabilities" ? "active" : ""}`}
-            onClick={() => scrollToSection("capabilities")}
+            onClick={(e) => scrollToSection(e, "capabilities")}
           >
             Capabilities
           </button>
           <button
             className={`section-nav-item ${activeSection === "services" ? "active" : ""}`}
-            onClick={() => scrollToSection("services")}
+            onClick={(e) => scrollToSection(e, "services")}
           >
             Services
           </button>
           <button
             className={`section-nav-item ${activeSection === "how-it-works" ? "active" : ""}`}
-            onClick={() => scrollToSection("how-it-works")}
+            onClick={(e) => scrollToSection(e, "how-it-works")}
           >
             How It Works
           </button>
           <button
             className={`section-nav-item ${activeSection === "faq" ? "active" : ""}`}
-            onClick={() => scrollToSection("faq")}
+            onClick={(e) => scrollToSection(e, "faq")}
           >
             FAQ
           </button>
@@ -776,3 +830,4 @@ const FAQAccordion: React.FC = () => {
 };
 
 export default App;
+
