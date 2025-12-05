@@ -3794,16 +3794,16 @@ body::-webkit-scrollbar {
 .contact-primary-card {
   background: white;
   border-radius: 28px;
-  padding: 32px;
+  padding: 52px;
   box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
   border: 1px solid rgba(15, 23, 42, 0.04);
 }
 
 .contact-primary-row {
   display: flex;
-  gap: 14px;
+  gap: 24px;
   align-items: center;
-  padding: 12px 0;
+  padding: 24px 0;
   border-bottom: 1px solid #e2e8f0;
 }
 
@@ -3815,10 +3815,13 @@ body::-webkit-scrollbar {
   font-size: 0.8rem;
   color: #94a3b8;
   text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
 }
 
 .contact-primary-row strong {
   color: #0f172a;
+  display: block;
 }
 
 .contact-primary-row svg {
@@ -4156,7 +4159,7 @@ body::-webkit-scrollbar {
   }
 
   .contact-primary-card {
-    padding: 24px;
+    padding: 40px;
   }
 
   .contact-form-section {
@@ -4247,10 +4250,12 @@ body::-webkit-scrollbar {
   }
 
   .contact-primary-card {
-    padding: 20px;
+    padding: 32px;
   }
 
   .contact-primary-row {
     flex-wrap: wrap;
+    padding: 20px 0;
+    gap: 20px;
   }
 }
