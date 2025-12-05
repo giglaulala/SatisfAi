@@ -32,7 +32,7 @@ import {
   FaCheckCircle,
   FaGlobe,
   FaChevronDown,
-  FaBolt,
+  FaHourglassHalf,
   FaDollarSign,
 } from "react-icons/fa";
 import logo from "./assets/logo.PNG";
@@ -116,7 +116,10 @@ const Dashboard: React.FC = () => {
               <span className="dashboard-card-green">+24.31%</span>
             </div>
             <ResponsiveContainer width="100%" height={120}>
-              <LineChart data={lineData} margin={{ top: 5, right: 5, left: 0, bottom: 0 }}>
+              <LineChart
+                data={lineData}
+                margin={{ top: 5, right: 5, left: 0, bottom: 0 }}
+              >
                 <defs>
                   <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.8} />
@@ -138,7 +141,10 @@ const Dashboard: React.FC = () => {
           <div className="dashboard-card dashboard-card-chart">
             <div className="dashboard-card-title">Growth Trend</div>
             <ResponsiveContainer width="100%" height={120}>
-              <AreaChart data={areaData} margin={{ top: 5, right: 5, left: 0, bottom: 0 }}>
+              <AreaChart
+                data={areaData}
+                margin={{ top: 5, right: 5, left: 0, bottom: 0 }}
+              >
                 <defs>
                   <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#60a5fa" stopOpacity={0.6} />
@@ -159,7 +165,10 @@ const Dashboard: React.FC = () => {
           <div className="dashboard-card dashboard-card-chart">
             <div className="dashboard-card-title">Resolution Status</div>
             <ResponsiveContainer width="100%" height={120}>
-              <BarChart data={barData} margin={{ top: 5, right: 5, left: 0, bottom: 0 }}>
+              <BarChart
+                data={barData}
+                margin={{ top: 5, right: 5, left: 0, bottom: 0 }}
+              >
                 <Bar dataKey="resolved" fill="#2563eb" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="pending" fill="#60a5fa" radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -191,7 +200,10 @@ const Dashboard: React.FC = () => {
               </ResponsiveContainer>
               <div className="dashboard-pie-legend-compact">
                 {pieData.slice(0, 3).map((entry) => (
-                  <div className="dashboard-pie-legend-item-compact" key={entry.name}>
+                  <div
+                    className="dashboard-pie-legend-item-compact"
+                    key={entry.name}
+                  >
                     <span
                       className="dashboard-pie-legend-dot"
                       style={{ background: entry.color }}
@@ -296,10 +308,12 @@ const StarterPage: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const headerHeight = document.querySelector(".dashboard-header")?.getBoundingClientRect().height || 80;
+      const headerHeight =
+        document.querySelector(".dashboard-header")?.getBoundingClientRect()
+          .height || 80;
       const scrollY = window.scrollY;
       const viewportHeight = window.innerHeight;
-      
+
       // Check if we're at the top (hero section)
       if (scrollY < 100) {
         setActiveSection("hero");
@@ -308,24 +322,33 @@ const StarterPage: React.FC = () => {
 
       const sections = [
         { id: "hero", element: document.querySelector(".starter-main") },
-        { id: "capabilities", element: document.querySelector("#capabilities") },
+        {
+          id: "capabilities",
+          element: document.querySelector("#capabilities"),
+        },
         { id: "services", element: document.querySelector("#services") },
-        { id: "how-it-works", element: document.querySelector("#how-it-works") },
+        {
+          id: "how-it-works",
+          element: document.querySelector("#how-it-works"),
+        },
         { id: "faq", element: document.querySelector("#faq") },
       ];
 
       // Find which section is currently in view
       let currentSection = "hero";
-      
+
       for (let i = 0; i < sections.length; i++) {
         const section = sections[i];
         if (section.element) {
           const rect = section.element.getBoundingClientRect();
           const sectionTop = rect.top + scrollY;
           const sectionBottom = sectionTop + rect.height;
-          
+
           // Check if section is in viewport (with offset for header)
-          if (scrollY + headerHeight + 100 >= sectionTop && scrollY + headerHeight + 100 < sectionBottom) {
+          if (
+            scrollY + headerHeight + 100 >= sectionTop &&
+            scrollY + headerHeight + 100 < sectionBottom
+          ) {
             currentSection = section.id;
             break;
           }
@@ -364,14 +387,17 @@ const StarterPage: React.FC = () => {
 
     window.addEventListener("scroll", throttledHandleScroll, { passive: true });
     handleScroll(); // Check on mount
-    
+
     return () => window.removeEventListener("scroll", throttledHandleScroll);
   }, []);
 
-  const scrollToSection = (e: React.MouseEvent<HTMLButtonElement>, sectionId: string) => {
+  const scrollToSection = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    sectionId: string
+  ) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (sectionId === "hero") {
       window.scrollTo({
         top: 0,
@@ -380,21 +406,21 @@ const StarterPage: React.FC = () => {
       setActiveSection("hero");
       return;
     }
-    
+
     // Use getElementById - the IDs are confirmed to exist
     const element = document.getElementById(sectionId);
-    
+
     if (!element) {
       console.error(`Section "${sectionId}" not found`);
       return;
     }
-    
+
     // Use scrollIntoView which respects scroll-margin-top CSS property
     element.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
-    
+
     // Update active section immediately
     setActiveSection(sectionId);
   };
@@ -413,31 +439,41 @@ const StarterPage: React.FC = () => {
         </div>
         <nav className="section-nav-inline">
           <button
-            className={`section-nav-item ${activeSection === "hero" ? "active" : ""}`}
+            className={`section-nav-item ${
+              activeSection === "hero" ? "active" : ""
+            }`}
             onClick={(e) => scrollToSection(e, "hero")}
           >
             Home
           </button>
           <button
-            className={`section-nav-item ${activeSection === "capabilities" ? "active" : ""}`}
+            className={`section-nav-item ${
+              activeSection === "capabilities" ? "active" : ""
+            }`}
             onClick={(e) => scrollToSection(e, "capabilities")}
           >
             Capabilities
           </button>
           <button
-            className={`section-nav-item ${activeSection === "services" ? "active" : ""}`}
+            className={`section-nav-item ${
+              activeSection === "services" ? "active" : ""
+            }`}
             onClick={(e) => scrollToSection(e, "services")}
           >
             Services
           </button>
           <button
-            className={`section-nav-item ${activeSection === "how-it-works" ? "active" : ""}`}
+            className={`section-nav-item ${
+              activeSection === "how-it-works" ? "active" : ""
+            }`}
             onClick={(e) => scrollToSection(e, "how-it-works")}
           >
             How It Works
           </button>
           <button
-            className={`section-nav-item ${activeSection === "faq" ? "active" : ""}`}
+            className={`section-nav-item ${
+              activeSection === "faq" ? "active" : ""
+            }`}
             onClick={(e) => scrollToSection(e, "faq")}
           >
             FAQ
@@ -486,7 +522,7 @@ const StarterPage: React.FC = () => {
           <div className="starter-tagline">
             Analyze{" "}
             <span className="hero-card-blue">
-              <FaBolt className="hero-icon" />
+              <FaHourglassHalf className="hero-icon" />
               54x
             </span>{" "}
             faster, with{" "}
@@ -730,25 +766,6 @@ const StarterPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Break Card Section */}
-      <section className="break-card-section">
-        <div className="break-card-bg">
-          <div className="break-card-content">
-            <h1 className="break-card-title">
-              Take a Break, Boost Your Productivity
-            </h1>
-            <div className="break-card-buttons">
-              <button className="break-card-btn break-card-btn-primary">
-                Start Break
-              </button>
-              <button className="break-card-btn break-card-btn-secondary">
-                Learn More
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section id="faq" className="faq-section">
         <h2 className="faq-title">FAQ</h2>
@@ -756,7 +773,7 @@ const StarterPage: React.FC = () => {
       </section>
 
       <footer className="site-footer">
-        <p>© 2024 SatisfAI. All rights reserved.</p>
+        <p>© 2025 SatisfAI. All rights reserved.</p>
       </footer>
       <div className="dashboard-bg-curve dashboard-bg-curve-green"></div>
       <div className="dashboard-bg-curve dashboard-bg-curve-red"></div>
@@ -787,17 +804,12 @@ const faqData = [
   {
     question: "How do I register?",
     answer:
-      "Click the Register Now button on the landing page and fill out the registration form to get started.",
+      "Click the Sign Up Now button on the signin page and fill out the registration form to get started.",
   },
   {
     question: "Is my data secure?",
     answer:
       "Yes, we use industry-standard security practices to keep your data safe and private.",
-  },
-  {
-    question: "Can I try the demo before registering?",
-    answer:
-      "Absolutely! Click Try Demo to explore the dashboard and analytics features.",
   },
 ];
 
@@ -819,7 +831,7 @@ const FAQAccordion: React.FC = () => {
           </button>
           <div
             className="faq-answer-wrapper"
-            style={{ maxHeight: openIdx === idx ? 200 : 0 }}
+            style={{ maxHeight: openIdx === idx ? "500px" : "0" }}
           >
             <div className="faq-answer">{item.answer}</div>
           </div>
@@ -830,4 +842,3 @@ const FAQAccordion: React.FC = () => {
 };
 
 export default App;
-

@@ -274,6 +274,7 @@ const Chat: React.FC = () => {
   const [newMessage, setNewMessage] = useState("");
   const [sidebarMode, setSidebarMode] = useState<SidebarMode>("chats");
   const [activeNavItem, setActiveNavItem] = useState(demoSidebarItems[0].label);
+  const [showAnalysis, setShowAnalysis] = useState(false);
 
   const getMessagesForUser = (userId: number) => {
     switch (userId) {
@@ -494,9 +495,39 @@ const Chat: React.FC = () => {
     }
   };
 
+  const getAnalysisText = (userId: number) => {
+    switch (userId) {
+      case 2: // ლევან ქავთარაძე
+        return {
+          paragraphs: [
+            "მომხმარებელი ლევან ქავთარაძე ძალიან კმაყოფილია მომსახურებით. ჩატი მოკლე და ეფექტური იყო, რაც მიუთითებს სწრაფ პრობლემის გადაჭრაზე.",
+            "მომხმარებლის განწყობა დადებითია და საშუალო პასუხის დრო ძალიან კარგია (1.2 წუთი). კმაყოფილების მაჩვენებელი 92% არის, რაც ძალიან მაღალი მაჩვენებელია.",
+            "რეკომენდაცია: გააგრძელეთ იგივე დონის მომსახურება. ეს მომხმარებელი კმაყოფილია და შეიძლება გახდეს რეგულარული კლიენტი.",
+          ],
+        };
+      case 3: // მარიამ დვალიშვილი
+        return {
+          paragraphs: [
+            "მომხმარებელი მარიამ დვალიშვილი გამოხატავს ნეგატიურ განწყობას. ჩატი გრძელი იყო (22 წუთი), რაც მიუთითებს რთულ პრობლემაზე ან გაურკვევლობაზე.",
+            "პრობლემა: შეკვეთა არ მივიღო ვადაში. მომხმარებელი უკმაყოფილოა და საჭიროებს დაუყოვნებლივ ყურადღებას. კმაყოფილების მაჩვენებელი მხოლოდ 45% არის.",
+            "რეკომენდაცია: დაუყოვნებლივ დაუკავშირდით მომხმარებელს, გამოიკვლიეთ პრობლემა და შესთავაზეთ კონკრეტული გადაწყვეტა. საჭიროა შეკვეთის სტატუსის შემოწმება და შესაძლო კომპენსაციის შეთავაზება.",
+          ],
+        };
+      default: // გიორგი იმერლიშვილი და სხვები
+        return {
+          paragraphs: [
+            "მოთხოვნა ვერ დაკმაყოფილდა, არასაკმარისი პროდუქტი. მომხმარებელმა მოითხოვა პროდუქტი, რომელიც ამჟამად არ არის ხელმისაწვდომი საწყობში.",
+            "მომხმარებლის განწყობა დადებითია, მაგრამ პროდუქტის ხელმისაწვდომობის პრობლემაა. საშუალო პასუხის დრო კარგია (2.3 წუთი) და კმაყოფილების მაჩვენებელი 78% არის.",
+            "რეკომენდაცია: დაუკავშირდით მომხმარებელს და შესთავაზეთ მსგავსი პროდუქტები ან მოითხოვეთ დამატებითი დეტალები მოთხოვნის შესახებ. შესაძლოა, მომხმარებელს მოწონდეს ალტერნატიული ვარიანტი.",
+          ],
+        };
+    }
+  };
+
   const handleUserSelect = (user: (typeof users)[0]) => {
     setSelectedUser(user);
     setMessages(getMessagesForUser(user.id));
+    setShowAnalysis(false); // Reset analysis view when switching users
   };
 
   const handleSendMessage = () => {
@@ -650,6 +681,12 @@ const Chat: React.FC = () => {
           <span className="chat-summary-text">
             მოთხოვნა ვერ დაკმაყოფილდა, არასაკმარისი პროდუქტი
           </span>
+          <button
+            className="analysis-btn"
+            onClick={() => setShowAnalysis(!showAnalysis)}
+          >
+            ტექსტის ანალიზი
+          </button>
         </div>
         {/* Recipient Info */}
         <div className="chat-recipient-bar">
@@ -671,19 +708,34 @@ const Chat: React.FC = () => {
         </div>
         {/* Chat Window */}
         <main className="chat-window">
-          {messages.map((msg) => (
-            <div
-              key={msg.id}
-              className={`chat-bubble ${
-                msg.user === "me" ? "chat-bubble-me" : "chat-bubble-bot"
-              }${msg.positive ? " chat-bubble-positive" : ""}${
-                msg.negative ? " chat-bubble-negative" : ""
-              }`}
-            >
-              <div className="chat-bubble-text">{msg.text}</div>
-              <div className="chat-bubble-meta">{msg.time}</div>
+          {showAnalysis ? (
+            <div className="analysis-view">
+              <div className="analysis-content">
+                <h3 className="analysis-title">ტექსტის ანალიზი</h3>
+                <div className="analysis-text">
+                  {getAnalysisText(selectedUser.id).paragraphs.map(
+                    (paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    )
+                  )}
+                </div>
+              </div>
             </div>
-          ))}
+          ) : (
+            messages.map((msg) => (
+              <div
+                key={msg.id}
+                className={`chat-bubble ${
+                  msg.user === "me" ? "chat-bubble-me" : "chat-bubble-bot"
+                }${msg.positive ? " chat-bubble-positive" : ""}${
+                  msg.negative ? " chat-bubble-negative" : ""
+                }`}
+              >
+                <div className="chat-bubble-text">{msg.text}</div>
+                <div className="chat-bubble-meta">{msg.time}</div>
+              </div>
+            ))
+          )}
         </main>
         {/* Input Row */}
         <div className="chat-input-row">
