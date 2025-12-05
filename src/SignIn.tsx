@@ -204,6 +204,51 @@ const SignIn: React.FC = () => {
       {/* Right side - Sign in/Sign up form */}
       <div className="signin-right">
         <div className="signin-form-container">
+          <div className="signin-header-top">
+            <div className="signin-logo">
+              <img src={logo} alt="SatisfAI Logo" className="signin-logo-img" />
+            </div>
+            <div className="signin-nav-right">
+              <div className="language-selector" ref={languageSelectorRef}>
+                <button
+                  className="language-selector-btn"
+                  onClick={() =>
+                    setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
+                  }
+                >
+                  <FaGlobe className="language-icon" />
+                  <span>{selectedLanguage}</span>
+                  <FaChevronDown
+                    className={`language-chevron ${
+                      isLanguageDropdownOpen ? "rotated" : ""
+                    }`}
+                  />
+                </button>
+                {isLanguageDropdownOpen && (
+                  <div className="language-dropdown">
+                    {languages.map((language) => (
+                      <button
+                        key={language.code}
+                        className={`language-option ${
+                          selectedLanguage === language.code ? "selected" : ""
+                        }`}
+                        onClick={() => handleLanguageSelect(language.code)}
+                      >
+                        {language.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <button
+                className="signin-contact-btn-top"
+                onClick={() => navigate("/contact")}
+              >
+                Contact
+              </button>
+            </div>
+          </div>
+          
           <div className="signin-mode-toggle">
             <button
               type="button"

@@ -303,7 +303,6 @@ const StarterPage: React.FC = () => {
             style={{ cursor: "pointer" }}
           >
             <img src={logo} alt="SatisfAI Logo" className="logo-image" />
-            <h1>Welcome to SatisfAI</h1>
           </div>
         </div>
         <div className="dashboard-header-right">
@@ -346,21 +345,7 @@ const StarterPage: React.FC = () => {
       </header>
       <main className="starter-main">
         <div className="starter-content">
-          <button
-            className="starter-cta-btn-register"
-            onClick={() => navigate("/signin")}
-          >
-            Register Now
-          </button>
-          <button
-            className="starter-cta-btn"
-            onClick={() => navigate("/dashboard")}
-          >
-            Analyse Now
-          </button>
-        </div>
-        <div className="animated-background-text-container">
-          <div className="animated-background-text">
+          <div className="starter-tagline">
             Analyze{" "}
             <span className="hero-card-blue">
               <FaBolt className="hero-icon" />
@@ -373,6 +358,18 @@ const StarterPage: React.FC = () => {
             </span>{" "}
             less cost
           </div>
+          <button
+            className="starter-cta-btn-register"
+            onClick={() => navigate("/signin")}
+          >
+            Register Now
+          </button>
+          <button
+            className="starter-cta-btn"
+            onClick={() => navigate("/dashboard")}
+          >
+            Analyse Now
+          </button>
         </div>
         <div className="starter-illustration">
           <div className="illustration-icon robot">
