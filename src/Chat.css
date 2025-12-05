@@ -178,12 +178,12 @@
 
 /* Header */
 .chat-header {
-  padding: 0;
+  padding: 10px;
   padding-left: 5px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
+  gap: 12px;
   background: linear-gradient(180deg, #1976d2 0%, #1565c0 100%);
   color: white;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
@@ -191,7 +191,7 @@
   z-index: 10;
   height: 100%;
   min-height: 0;
-  padding-top: 10px;
+  overflow: hidden;
 }
 .chat-header::before {
   content: "";
@@ -218,42 +218,27 @@
   flex-shrink: 0;
 }
 .chat-status-badges {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
   align-items: flex-start;
   width: 100%;
   flex: 1;
   padding: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(25, 118, 210, 0.3) transparent;
+  overflow: hidden;
   min-height: 0;
-}
-.chat-status-badges::-webkit-scrollbar {
-  width: 6px;
-}
-.chat-status-badges::-webkit-scrollbar-track {
-  background: transparent;
-}
-.chat-status-badges::-webkit-scrollbar-thumb {
-  background-color: rgba(25, 118, 210, 0.3);
-  border-radius: 3px;
-}
-.chat-status-badges::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(25, 118, 210, 0.5);
 }
 .badge-cube {
   width: 100%;
   min-height: 140px;
-  padding: 20px;
-  border-radius: 16px;
+  padding: 16px;
+  border-radius: 8px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15),
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -276,71 +261,63 @@
     rgba(255, 255, 255, 0.05) 100%
   );
   pointer-events: none;
-  border-radius: 16px;
+  border-radius: 8px;
 }
 .badge-cube::after {
   content: "";
   position: absolute;
-  bottom: -2px;
-  left: 4px;
-  right: 4px;
-  height: 4px;
+  bottom: -1px;
+  left: 2px;
+  right: 2px;
+  height: 2px;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 0 0 16px 16px;
-  transform: translateZ(-4px);
-  filter: blur(2px);
+  border-radius: 0 0 8px 8px;
+  transform: translateZ(-2px);
+  filter: blur(1px);
 }
 .badge-cube:hover {
-  transform: translateY(-4px) translateZ(8px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 6px 12px rgba(0, 0, 0, 0.2),
+  transform: translateY(-2px) translateZ(4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), 0 3px 6px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
-.badge-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  width: 100%;
-  margin-bottom: 12px;
-  position: relative;
-  z-index: 1;
-}
 .badge-icon {
-  font-size: 32px;
+  font-size: 20px;
   opacity: 0.9;
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
   flex-shrink: 0;
 }
 .badge-content {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 100%;
+  flex: 1;
   position: relative;
   z-index: 1;
 }
 .badge-number {
-  font-size: 32px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
   display: flex;
   align-items: baseline;
-  gap: 4px;
+  gap: 2px;
 }
 .badge-unit {
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 600;
   opacity: 0.85;
 }
 .badge-label {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
-  opacity: 0.8;
+  opacity: 0.85;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   margin-top: 2px;
+  line-height: 1.2;
 }
 .badge-description {
   font-size: 13px;
@@ -568,16 +545,11 @@
   }
 
   .chat-status-badges {
-    flex-direction: row;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    overflow: hidden;
     flex: 0;
     width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 0;
-    -webkit-overflow-scrolling: touch;
   }
 
   .chat-header,
@@ -605,32 +577,19 @@
 
   .badge-cube {
     min-height: 120px;
-    padding: 14px;
-    width: auto;
-    min-width: 180px;
-    flex: 0 0 auto;
-  }
-
-  .badge-description {
-    font-size: 11px;
-    padding-top: 2px;
-  }
-
-  .badge-header {
-    gap: 8px;
-    margin-bottom: 8px;
+    padding: 12px;
   }
 
   .badge-icon {
-    font-size: 22px;
+    font-size: 18px;
   }
 
   .badge-number {
-    font-size: 22px;
+    font-size: 16px;
   }
 
   .badge-unit {
-    font-size: 15px;
+    font-size: 11px;
   }
 
   .badge-label {
@@ -722,42 +681,29 @@
   }
 
   .chat-status-badges {
-    gap: 8px;
-    justify-content: flex-start;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    overflow: hidden;
     width: 100%;
     margin-left: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
     padding: 0;
-    -webkit-overflow-scrolling: touch;
   }
 
   .badge-cube {
-    min-height: 100px;
+    min-height: 110px;
     padding: 10px;
-    min-width: 150px;
-  }
-
-  .badge-description {
-    font-size: 10px;
-    padding-top: 1px;
-  }
-
-  .badge-header {
-    gap: 6px;
-    margin-bottom: 6px;
   }
 
   .badge-icon {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .badge-number {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .badge-unit {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .badge-label {
@@ -872,31 +818,24 @@
   }
 
   .badge-cube {
-    min-width: 130px;
-    padding: 8px;
-    min-height: 90px;
-  }
-
-  .badge-description {
-    font-size: 9px;
-    padding-top: 0;
-  }
-
-  .badge-header {
-    gap: 4px;
-    margin-bottom: 4px;
+    min-height: 100px;
+    padding: 10px;
   }
 
   .badge-icon {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .badge-number {
-    font-size: 16px;
+    font-size: 13px;
   }
 
   .badge-unit {
-    font-size: 11px;
+    font-size: 9px;
+  }
+
+  .badge-label {
+    font-size: 7px;
   }
 
   .chat-bubble {

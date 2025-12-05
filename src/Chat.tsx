@@ -351,6 +351,7 @@ const Chat: React.FC = () => {
             icon: <MdTrendingUp />,
             number: "8",
             unit: "%",
+            label: "ნეგატიური",
             description: "ნეგატიური გამოხმაურების პროცენტი დაბალია.",
             color: "badge-red",
           },
@@ -418,6 +419,7 @@ const Chat: React.FC = () => {
             icon: <MdTrendingUp />,
             number: "55",
             unit: "%",
+            label: "ნეგატიური",
             description:
               "ნეგატიური გამოხმაურების პროცენტი მაღალია. საჭიროებს გაუმჯობესებას.",
             color: "badge-red",
@@ -484,6 +486,7 @@ const Chat: React.FC = () => {
             icon: <MdTrendingUp />,
             number: "22",
             unit: "%",
+            label: "ნეგატიური",
             description: "ნეგატიური გამოხმაურების პროცენტი საშუალო დონეზეა.",
             color: "badge-red",
           },
@@ -491,7 +494,7 @@ const Chat: React.FC = () => {
     }
   };
 
-  const handleUserSelect = (user: any) => {
+  const handleUserSelect = (user: (typeof users)[0]) => {
     setSelectedUser(user);
     setMessages(getMessagesForUser(user.id));
   };
@@ -725,12 +728,7 @@ const Chat: React.FC = () => {
           <div className="chat-status-badges">
             {getHeaderBadges(selectedUser.id).map((badge, index) => (
               <div key={index} className={`badge-cube ${badge.color}`}>
-                <div className="badge-header">
-                  <div className="badge-icon">{badge.icon}</div>
-                  {badge.description && (
-                    <div className="badge-description">{badge.description}</div>
-                  )}
-                </div>
+                <div className="badge-icon">{badge.icon}</div>
                 <div className="badge-content">
                   <div className="badge-number">
                     {badge.number}
@@ -738,6 +736,9 @@ const Chat: React.FC = () => {
                       <span className="badge-unit">{badge.unit}</span>
                     )}
                   </div>
+                  {badge.label && (
+                    <div className="badge-label">{badge.label}</div>
+                  )}
                 </div>
               </div>
             ))}
