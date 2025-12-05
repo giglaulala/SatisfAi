@@ -90,36 +90,36 @@ const Chat: React.FC = () => {
     switch (userId) {
       case 2: // ლევან ქავთარაძე
         return [
-          { icon: <MdMood />, number: 'დადებითი', label: 'განწყობა', color: 'badge-green' },
-          { icon: <MdAccessTime />, number: '1.2', unit: 'წთ', label: 'საშუალო პასუხის დრო', color: 'badge-blue' },
-          { icon: <MdTimer />, number: '8', unit: 'წთ', label: 'ჩატის ხანგრძლივობა', color: 'badge-purple' },
-          { icon: <MdLabel />, number: '2', label: 'თეგები', color: 'badge-orange' },
-          { icon: <MdCheckCircle />, number: 'აქტიური', label: '', color: 'badge-green' },
-          { icon: <MdPerson />, number: 'სერვისში', label: 'მომხმარებელი', color: 'badge-blue' },
-          { icon: <MdTrendingUp />, number: '92', unit: '%', label: '', color: 'badge-green' },
-          { icon: <MdTrendingUp />, number: '8', unit: '%', label: '', color: 'badge-red' }
+          { icon: <MdMood />, number: 'დადებითი', label: 'განწყობა', description: 'მომხმარებლის განწყობა ჩატში დადებითია. კმაყოფილია მომსახურებით.', color: 'badge-green' },
+          { icon: <MdAccessTime />, number: '1.2', unit: 'წთ', label: 'საშუალო პასუხის დრო', description: 'პასუხის საშუალო დრო ძალიან სწრაფია. ეს მიუთითებს ეფექტურ მომსახურებაზე.', color: 'badge-blue' },
+          { icon: <MdTimer />, number: '8', unit: 'წთ', label: 'ჩატის ხანგრძლივობა', description: 'ჩატი მოკლე იყო, რაც მიუთითებს სწრაფ პრობლემის გადაჭრაზე.', color: 'badge-purple' },
+          { icon: <MdLabel />, number: '2', label: 'თეგები', description: 'ჩატი დათაგულია 2 კატეგორიაში: შეკვეთა და მხარდაჭერა.', color: 'badge-orange' },
+          { icon: <MdCheckCircle />, number: 'აქტიური', label: 'სტატუსი', description: 'მომხმარებელი ამჟამად აქტიურია და ელოდება პასუხს.', color: 'badge-green' },
+          { icon: <MdPerson />, number: 'სერვისში', label: 'მომხმარებელი', description: 'მომხმარებელი მიმდინარე სერვისშია და ელოდება დახმარებას.', color: 'badge-blue' },
+          { icon: <MdTrendingUp />, number: '92', unit: '%', label: 'კმაყოფილება', description: 'მომხმარებლის კმაყოფილების მაჩვენებელი ძალიან მაღალია.', color: 'badge-green' },
+          { icon: <MdTrendingUp />, number: '8', unit: '%', description: 'ნეგატიური გამოხმაურების პროცენტი დაბალია.', color: 'badge-red' }
         ];
       case 3: // მარიამ დვალიშვილი
         return [
-          { icon: <MdMood />, number: 'ნეგატიური', label: 'განწყობა', color: 'badge-red' },
-          { icon: <MdAccessTime />, number: '3.8', unit: 'წთ', label: 'საშუალო პასუხის დრო', color: 'badge-blue' },
-          { icon: <MdTimer />, number: '22', unit: 'წთ', label: 'ჩატის ხანგრძლივობა', color: 'badge-purple' },
-          { icon: <MdLabel />, number: '2', label: 'თეგები', color: 'badge-orange' },
-          { icon: <MdCheckCircle />, number: 'აქტიური', label: '', color: 'badge-green' },
-          { icon: <MdPerson />, number: 'სერვისში', label: 'მომხმარებელი', color: 'badge-blue' },
-          { icon: <MdTrendingUp />, number: '45', unit: '%', label: '', color: 'badge-red' },
-          { icon: <MdTrendingUp />, number: '55', unit: '%', label: '', color: 'badge-red' }
+          { icon: <MdMood />, number: 'ნეგატიური', label: 'განწყობა', description: 'მომხმარებლის განწყობა ჩატში ნეგატიურია. საჭიროებს დამატებით ყურადღებას.', color: 'badge-red' },
+          { icon: <MdAccessTime />, number: '3.8', unit: 'წთ', label: 'საშუალო პასუხის დრო', description: 'პასუხის საშუალო დრო საშუალო დონეზეა. შეიძლება გაუმჯობესდეს.', color: 'badge-blue' },
+          { icon: <MdTimer />, number: '22', unit: 'წთ', label: 'ჩატის ხანგრძლივობა', description: 'ჩატი გრძელი იყო, რაც მიუთითებს რთულ პრობლემაზე ან გაურკვევლობაზე.', color: 'badge-purple' },
+          { icon: <MdLabel />, number: '2', label: 'თეგები', description: 'ჩატი დათაგულია 2 კატეგორიაში: პრობლემა და შეკვეთა.', color: 'badge-orange' },
+          { icon: <MdCheckCircle />, number: 'აქტიური', label: 'სტატუსი', description: 'მომხმარებელი ამჟამად აქტიურია და ელოდება პასუხს.', color: 'badge-green' },
+          { icon: <MdPerson />, number: 'სერვისში', label: 'მომხმარებელი', description: 'მომხმარებელი მიმდინარე სერვისშია და ელოდება დახმარებას.', color: 'badge-blue' },
+          { icon: <MdTrendingUp />, number: '45', unit: '%', label: 'კმაყოფილება', description: 'მომხმარებლის კმაყოფილების მაჩვენებელი საშუალო დონეზეა.', color: 'badge-red' },
+          { icon: <MdTrendingUp />, number: '55', unit: '%', description: 'ნეგატიური გამოხმაურების პროცენტი მაღალია. საჭიროებს გაუმჯობესებას.', color: 'badge-red' }
         ];
       default:
         return [
-          { icon: <MdMood />, number: 'დადებითი', label: 'განწყობა', color: 'badge-green' },
-          { icon: <MdAccessTime />, number: '2.3', unit: 'წთ', label: 'საშუალო პასუხის დრო', color: 'badge-blue' },
-          { icon: <MdTimer />, number: '15', unit: 'წთ', label: 'ჩატის ხანგრძლივობა', color: 'badge-purple' },
-          { icon: <MdLabel />, number: '2', label: 'თეგები', color: 'badge-orange' },
-          { icon: <MdCheckCircle />, number: 'აქტიური', label: '', color: 'badge-green' },
-          { icon: <MdPerson />, number: 'სერვისში', label: 'მომხმარებელი', color: 'badge-blue' },
-          { icon: <MdTrendingUp />, number: '78', unit: '%', label: '', color: 'badge-green' },
-          { icon: <MdTrendingUp />, number: '22', unit: '%', label: '', color: 'badge-red' }
+          { icon: <MdMood />, number: 'დადებითი', label: 'განწყობა', description: 'მომხმარებლის განწყობა ჩატში დადებითია. კმაყოფილია მომსახურებით.', color: 'badge-green' },
+          { icon: <MdAccessTime />, number: '2.3', unit: 'წთ', label: 'საშუალო პასუხის დრო', description: 'პასუხის საშუალო დრო კარგია. მომხმარებლები იღებენ სწრაფ პასუხებს.', color: 'badge-blue' },
+          { icon: <MdTimer />, number: '15', unit: 'წთ', label: 'ჩატის ხანგრძლივობა', description: 'ჩატის საშუალო ხანგრძლივობა ნორმალურ დიაპაზონშია.', color: 'badge-purple' },
+          { icon: <MdLabel />, number: '2', label: 'თეგები', description: 'ჩატი დათაგულია 2 კატეგორიაში: შეკვეთა და კითხვა.', color: 'badge-orange' },
+          { icon: <MdCheckCircle />, number: 'აქტიური', label: 'სტატუსი', description: 'მომხმარებელი ამჟამად აქტიურია და ელოდება პასუხს.', color: 'badge-green' },
+          { icon: <MdPerson />, number: 'სერვისში', label: 'მომხმარებელი', description: 'მომხმარებელი მიმდინარე სერვისშია და ელოდება დახმარებას.', color: 'badge-blue' },
+          { icon: <MdTrendingUp />, number: '78', unit: '%', label: 'კმაყოფილება', description: 'მომხმარებლის კმაყოფილების მაჩვენებელი კარგ დონეზეა.', color: 'badge-green' },
+          { icon: <MdTrendingUp />, number: '22', unit: '%', description: 'ნეგატიური გამოხმაურების პროცენტი საშუალო დონეზეა.', color: 'badge-red' }
         ];
     }
   };
@@ -318,13 +318,15 @@ const Chat: React.FC = () => {
           <div className="chat-status-badges">
             {getHeaderBadges(selectedUser.id).map((badge, index) => (
               <div key={index} className={`badge-cube ${badge.color}`}>
-                <div className="badge-icon">{badge.icon}</div>
+                <div className="badge-header">
+                  <div className="badge-icon">{badge.icon}</div>
+                  {badge.description && <div className="badge-description">{badge.description}</div>}
+                </div>
                 <div className="badge-content">
                   <div className="badge-number">
                     {badge.number}
                     {badge.unit && <span className="badge-unit">{badge.unit}</span>}
                   </div>
-                  {badge.label && <div className="badge-label">{badge.label}</div>}
                 </div>
               </div>
             ))}
