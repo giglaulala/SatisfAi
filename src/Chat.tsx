@@ -275,6 +275,7 @@ const Chat: React.FC = () => {
   const [sidebarMode, setSidebarMode] = useState<SidebarMode>("chats");
   const [activeNavItem, setActiveNavItem] = useState(demoSidebarItems[0].label);
   const [showAnalysis, setShowAnalysis] = useState(false);
+  const [showFullAnalysis, setShowFullAnalysis] = useState(false);
 
   const getMessagesForUser = (userId: number) => {
     switch (userId) {
@@ -528,6 +529,7 @@ const Chat: React.FC = () => {
     setSelectedUser(user);
     setMessages(getMessagesForUser(user.id));
     setShowAnalysis(false); // Reset analysis view when switching users
+    setShowFullAnalysis(false); // Reset full analysis when switching users
   };
 
   const handleSendMessage = () => {
@@ -681,12 +683,20 @@ const Chat: React.FC = () => {
           <span className="chat-summary-text">
             მოთხოვნა ვერ დაკმაყოფილდა, არასაკმარისი პროდუქტი
           </span>
-          <button
-            className="analysis-btn"
-            onClick={() => setShowAnalysis(!showAnalysis)}
-          >
-            ტექსტის ანალიზი
-          </button>
+          <div className="view-panel">
+            <button
+              className={`view-btn ${!showAnalysis ? "active" : ""}`}
+              onClick={() => setShowAnalysis(false)}
+            >
+              ჩატი
+            </button>
+            <button
+              className={`view-btn ${showAnalysis ? "active" : ""}`}
+              onClick={() => setShowAnalysis(true)}
+            >
+              ტექსტის ანალიზი
+            </button>
+          </div>
         </div>
         {/* Recipient Info */}
         <div className="chat-recipient-bar">
@@ -711,43 +721,74 @@ const Chat: React.FC = () => {
           {showAnalysis ? (
             <div className="analysis-view">
               <div className="analysis-content">
-                <h3 className="analysis-title">ტექსტის ანალიზი</h3>
+                <div className="analysis-header">
+                  <h3 className="analysis-title">ტექსტის ანალიზი</h3>
+                  <div className="analysis-meta">
+                    <span className="analysis-date">
+                      {new Date().toLocaleDateString("ka-GE", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </span>
+                    <span className="analysis-separator">•</span>
+                    <span className="analysis-user">{selectedUser.name}</span>
+                  </div>
+                </div>
                 <div className="analysis-text">
-                  {getAnalysisText(selectedUser.id).paragraphs.map(
-                    (paragraph, index) => (
+                  {getAnalysisText(selectedUser.id).paragraphs
+                    .slice(0, showFullAnalysis ? undefined : 1)
+                    .map((paragraph, index) => (
                       <p key={index}>{paragraph}</p>
-                    )
+                    ))}
+                  {!showFullAnalysis && getAnalysisText(selectedUser.id).paragraphs.length > 1 && (
+                    <button
+                      className="analysis-more-btn"
+                      onClick={() => setShowFullAnalysis(true)}
+                    >
+                      სრული ანალიზი
+                      <span className="btn-arrow">→</span>
+                    </button>
+                  )}
+                  {showFullAnalysis && (
+                    <button
+                      className="analysis-more-btn"
+                      onClick={() => setShowFullAnalysis(false)}
+                    >
+                      შემოკლება
+                      <span className="btn-arrow">↑</span>
+                    </button>
                   )}
                 </div>
               </div>
             </div>
           ) : (
             messages.map((msg) => (
-              <div
-                key={msg.id}
+            <div
+              key={msg.id}
                 className={`chat-bubble ${
                   msg.user === "me" ? "chat-bubble-me" : "chat-bubble-bot"
                 }${msg.positive ? " chat-bubble-positive" : ""}${
                   msg.negative ? " chat-bubble-negative" : ""
                 }`}
-              >
-                <div className="chat-bubble-text">{msg.text}</div>
-                <div className="chat-bubble-meta">{msg.time}</div>
-              </div>
+            >
+              <div className="chat-bubble-text">{msg.text}</div>
+              <div className="chat-bubble-meta">{msg.time}</div>
+            </div>
             ))
           )}
         </main>
         {/* Input Row */}
         <div className="chat-input-row">
-          <input
-            className="chat-input"
-            placeholder="მოწერეთ შეტყობინება..."
+          <input 
+            className="chat-input" 
+            placeholder="მოწერეთ შეტყობინება..." 
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyPress={handleKeyPress}
           />
-          <button
-            className="chat-send-btn"
+          <button 
+            className="chat-send-btn" 
             onClick={handleSendMessage}
             disabled={!newMessage.trim()}
           >
@@ -801,4 +842,4 @@ const Chat: React.FC = () => {
   );
 };
 
-export default Chat;
+export default Chat; 
