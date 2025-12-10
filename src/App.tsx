@@ -43,6 +43,7 @@ import screenshot1 from "./assets/screenshot1.PNG";
 import chatImage from "./assets/chat.png";
 import dashboardImage from "./assets/dashboard.png";
 import textAnalysisImage from "./assets/textanalisys.png";
+import { FeatureSteps } from "./FeatureSteps";
 
 const lineData = [
   { name: "Mon", value: 900 },
@@ -634,12 +635,7 @@ const StarterPage: React.FC = () => {
         </div>
       </main>
       <section id="capabilities" className="capabilities-section">
-        <h2>What SatisfAI is Capable Of</h2>
         <div className="feature-icons-container">
-          <div className="feature-icon-item">
-            <FaShieldAlt />
-            <span>Secure Data</span>
-          </div>
           <div className="feature-icon-item">
             <FaHeadset />
             <span>24/7 Support</span>
@@ -653,57 +649,33 @@ const StarterPage: React.FC = () => {
             <span>99% Uptime</span>
           </div>
         </div>
-        <div className="capabilities-container">
-          <div className="capability-item capability-images-container">
-            <div className="capability-images-stacked">
-              <img
-                src={screenshot}
-                alt="Screenshot of Advanced Chat Analytics"
-                className="capability-screenshot"
-              />
-              <img
-                src={screenshot1}
-                alt="Screenshot of Seamless Integration"
-                className="capability-screenshot"
-              />
-            </div>
-          </div>
-          <div className="capability-item">
-            <div className="capability-text-item">
-              <div className="capability-icon-wrapper">
-                <FaChartLine />
-              </div>
-              <div className="capability-text-content">
-                <h3>Advanced Chat Analytics</h3>
-                <p>
-                  Gain deep insights into your customer interactions with our
-                  powerful analytics dashboard.
-                </p>
-              </div>
-            </div>
-            <div className="capability-text-item">
-              <div className="capability-icon-wrapper">
-                <FaLink />
-              </div>
-              <div className="capability-text-content">
-                <h3>Seamless Integration</h3>
-                <p>
-                  Easily integrate SatisfAI with your existing tools and
-                  workflows for a streamlined experience.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Filler content to complete the section visually */}
-        <div className="capabilities-filler">
-          <p className="capabilities-lead">
-            From real-time insights to effortless integrations, SatisfAI covers
-            your end-to-end customer communication analytics. Explore a few
-            examples below to see how teams use SatisfAI to make smarter, faster
-            decisions every day.
-          </p>
-        </div>
+        <FeatureSteps
+          title="What SatisfAI is Capable Of"
+          features={[
+            {
+              step: "Step 1",
+              title: "Advanced Chat Analytics",
+              content:
+                "Gain deep insights into your customer interactions with our powerful analytics dashboard.",
+              image: dashboardImage,
+            },
+            {
+              step: "Step 2",
+              title: "Real-time Chat Interface",
+              content:
+                "Monitor and manage customer conversations in real-time with our intuitive chat interface.",
+              image: chatImage,
+            },
+            {
+              step: "Step 3",
+              title: "Text Analysis & Insights",
+              content:
+                "Analyze conversation patterns, sentiment, and key topics to improve customer satisfaction.",
+              image: textAnalysisImage,
+            },
+          ]}
+          autoPlayInterval={4000}
+        />
       </section>
 
       {/* Services Section */}
