@@ -514,35 +514,6 @@ const StarterPage: React.FC = () => {
           >
             {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
-          <div className="language-selector" ref={languageSelectorRef}>
-            <button
-              className="language-selector-btn dashboard-header-btn"
-              onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
-            >
-              <FaGlobe className="language-icon" />
-              <span>{selectedLanguage}</span>
-              <FaChevronDown
-                className={`language-chevron ${
-                  isLanguageDropdownOpen ? "rotated" : ""
-                }`}
-              />
-            </button>
-            {isLanguageDropdownOpen && (
-              <div className="language-dropdown">
-                {languages.map((language) => (
-                  <button
-                    key={language.code}
-                    className={`language-option ${
-                      selectedLanguage === language.code ? "selected" : ""
-                    }`}
-                    onClick={() => handleLanguageSelect(language.code)}
-                  >
-                    {language.name}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
           <button
             className="dashboard-header-btn signin-header-btn"
             onClick={() => navigate("/signin")}
@@ -609,37 +580,6 @@ const StarterPage: React.FC = () => {
           </button>
           <div className="mobile-menu-divider"></div>
           <div className="mobile-menu-actions">
-            <div className="mobile-language-selector" ref={languageSelectorRef}>
-              <button
-                className="mobile-language-btn"
-                onClick={() =>
-                  setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
-                }
-              >
-                <FaGlobe className="mobile-language-icon" />
-                <span>{selectedLanguage}</span>
-                <FaChevronDown
-                  className={`mobile-language-chevron ${
-                    isLanguageDropdownOpen ? "rotated" : ""
-                  }`}
-                />
-              </button>
-              {isLanguageDropdownOpen && (
-                <div className="mobile-language-dropdown">
-                  {languages.map((language) => (
-                    <button
-                      key={language.code}
-                      className={`mobile-language-option ${
-                        selectedLanguage === language.code ? "selected" : ""
-                      }`}
-                      onClick={() => handleLanguageSelect(language.code)}
-                    >
-                      {language.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
             <button
               className="mobile-signin-btn"
               onClick={() => {

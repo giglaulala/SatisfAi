@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaEnvelope,
@@ -6,8 +6,6 @@ import {
   FaEye,
   FaEyeSlash,
   FaArrowLeft,
-  FaGlobe,
-  FaChevronDown,
   FaUser,
 } from "react-icons/fa";
 import logo from "./assets/logo.PNG";
@@ -15,9 +13,6 @@ import "./App.css";
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedLanguage, setSelectedLanguage] = useState("EN");
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const languageSelectorRef = useRef<HTMLDivElement>(null);
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -30,33 +25,6 @@ const SignIn: React.FC = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const languages = [
-    { code: "EN", name: "English" },
-    { code: "KA", name: "ქართული" },
-    { code: "RU", name: "Русский" },
-  ];
-
-  const handleLanguageSelect = (languageCode: string) => {
-    setSelectedLanguage(languageCode);
-    setIsLanguageDropdownOpen(false);
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        languageSelectorRef.current &&
-        !languageSelectorRef.current.contains(event.target as Node)
-      ) {
-        setIsLanguageDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -149,39 +117,6 @@ const SignIn: React.FC = () => {
             <img src={logo} alt="SatisfAI Logo" className="signin-logo-img" />
           </div>
           <div className="signin-nav-right">
-            <div className="language-selector" ref={languageSelectorRef}>
-              <button
-                className="language-selector-btn"
-                style={{ color: "white" }}
-                onClick={() =>
-                  setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
-                }
-              >
-                <FaGlobe className="language-icon" style={{ color: "white" }} />
-                <span>{selectedLanguage}</span>
-                <FaChevronDown
-                  className={`language-chevron ${
-                    isLanguageDropdownOpen ? "rotated" : ""
-                  }`}
-                  style={{ color: "white" }}
-                />
-              </button>
-              {isLanguageDropdownOpen && (
-                <div className="language-dropdown">
-                  {languages.map((language) => (
-                    <button
-                      key={language.code}
-                      className={`language-option ${
-                        selectedLanguage === language.code ? "selected" : ""
-                      }`}
-                      onClick={() => handleLanguageSelect(language.code)}
-                    >
-                      {language.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
             <button
               className="signin-contact-btn"
               onClick={() => navigate("/contact")}
@@ -209,37 +144,6 @@ const SignIn: React.FC = () => {
               <img src={logo} alt="SatisfAI Logo" className="signin-logo-img" />
             </div>
             <div className="signin-nav-right">
-              <div className="language-selector" ref={languageSelectorRef}>
-                <button
-                  className="language-selector-btn"
-                  onClick={() =>
-                    setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
-                  }
-                >
-                  <FaGlobe className="language-icon" />
-                  <span>{selectedLanguage}</span>
-                  <FaChevronDown
-                    className={`language-chevron ${
-                      isLanguageDropdownOpen ? "rotated" : ""
-                    }`}
-                  />
-                </button>
-                {isLanguageDropdownOpen && (
-                  <div className="language-dropdown">
-                    {languages.map((language) => (
-                      <button
-                        key={language.code}
-                        className={`language-option ${
-                          selectedLanguage === language.code ? "selected" : ""
-                        }`}
-                        onClick={() => handleLanguageSelect(language.code)}
-                      >
-                        {language.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
               <button
                 className="signin-contact-btn-top"
                 onClick={() => navigate("/contact")}
