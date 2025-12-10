@@ -650,7 +650,7 @@ const StarterPage: React.FC = () => {
           </div>
         </div>
         <FeatureSteps
-          title="What SatisfAI is Capable Of"
+          title=""
           features={[
             {
               step: "Step 1",
@@ -813,8 +813,21 @@ const StarterPage: React.FC = () => {
 
       {/* FAQ Section */}
       <section id="faq" className="faq-section">
+        <div className="faq-title-wrapper">
+          <div className="faq-title-line"></div>
         <h2 className="faq-title">FAQ</h2>
-        <FAQAccordion />
+          <div className="faq-title-bar"></div>
+        </div>
+        <div className="faq-cards-container">
+          <div className="faq-container">
+            <h2 className="faq-category-title">General</h2>
+            <FAQAccordion data={faqData} />
+          </div>
+          <div className="faq-container">
+            <h2 className="faq-category-title">Technical</h2>
+            <FAQAccordion data={faqTechnicalData} />
+          </div>
+        </div>
       </section>
 
       <footer className="site-footer">
@@ -842,37 +855,77 @@ const App: React.FC = () => {
 // FAQ data and accordion component
 const faqData = [
   {
-    question: "What is SatisfAI?",
+    question: "How can I use SatisfAI without registration?",
     answer:
-      "SatisfAI is a platform that helps you analyze and optimize your customer chat interactions with advanced analytics.",
+      "You can explore SatisfAI's features with our comprehensive free trial that gives you access to core functionality without requiring immediate registration. Simply click 'Try for free' on the homepage to get started instantly. The free trial includes access to basic chat analytics, real-time monitoring capabilities, and sample dashboards that demonstrate the platform's power. While the free trial provides valuable hands-on experience, full access to all features—including advanced analytics, custom report generation, data export capabilities, team collaboration tools, and priority support—requires registration. Registration is quick, secure, and takes less than two minutes. Once registered, you'll unlock unlimited data retention, API access for integrations, and custom alert configurations.",
   },
   {
-    question: "How do I register?",
+    question: "Do you have a referral program?",
     answer:
-      "Click the Sign Up Now button on the signin page and fill out the registration form to get started.",
+      "Yes! We offer an exciting referral program designed to reward our valued users for helping grow the SatisfAI community. When you refer colleagues, friends, or other businesses to SatisfAI, you earn substantial rewards that can include account credits, extended subscription periods, or even free months of premium features. Each successful referral typically earns you credits that can be applied to your subscription, reducing your costs while helping others discover the power of advanced chat analytics. New users you refer also receive special onboarding bonuses, making it a win-win situation. To participate, simply contact our support team through the contact form or email, and they'll provide you with your unique referral link and a detailed breakdown of the current referral rewards structure.",
   },
   {
-    question: "Is my data secure?",
+    question: "Can I access chat analytics using my mobile device?",
     answer:
-      "Yes, we use industry-standard security practices to keep your data safe and private.",
+      "Absolutely! SatisfAI is fully responsive and optimized to work seamlessly across all mobile devices, including smartphones and tablets running iOS, Android, and other mobile operating systems. Our mobile-optimized interface ensures that you can access your complete analytics dashboard, view real-time chat metrics, monitor customer interactions, and review detailed reports from anywhere, at any time. The mobile experience maintains all the core functionality of the desktop version, including interactive charts, customizable widgets, and the ability to drill down into specific conversation details. You can receive push notifications for important alerts, share reports directly from your mobile device, and even configure new monitoring parameters on the go.",
+  },
+  {
+    question: "Can I import my existing chat data to SatisfAI?",
+    answer:
+      "Yes, SatisfAI provides comprehensive data import capabilities that support a wide variety of chat platforms, formats, and data structures. Our robust integration tools allow you to seamlessly migrate your historical chat data, conversation logs, customer information, and existing analytics into the SatisfAI platform. We support imports from popular platforms including Intercom, Zendesk, Drift, LiveChat, Freshchat, and many others, as well as custom CSV, JSON, and API-based data formats. The import process is designed to be straightforward and secure, with our system automatically mapping your existing data fields to SatisfAI's analytics structure. For larger datasets or complex migrations involving multiple data sources, our dedicated support team provides personalized assistance to ensure a smooth transition.",
+  },
+  {
+    question: "Can I use SatisfAI to analyze customer conversation flows?",
+    answer:
+      "Definitely! SatisfAI's advanced analytics suite includes sophisticated conversation flow mapping and analysis capabilities that allow you to visualize, understand, and optimize how customer interactions progress through different stages of your support and sales processes. Our conversation flow analysis tools provide detailed visual representations of customer journeys, showing you exactly how conversations move from initial contact through resolution, including all the decision points, handoffs, and interactions along the way. You can identify common conversation patterns, detect bottlenecks where customers frequently get stuck, understand which conversation paths lead to successful outcomes, and discover opportunities to streamline your communication processes. The flow analysis includes metrics such as average conversation duration at each stage, drop-off rates, escalation patterns, and the effectiveness of different conversation strategies. This comprehensive view helps you optimize your support workflows, improve agent training by identifying best practices, and enhance customer satisfaction by reducing friction in the conversation experience.",
   },
 ];
 
-const FAQAccordion: React.FC = () => {
+const faqTechnicalData = [
+  {
+    question: "What integrations does SatisfAI support?",
+    answer:
+      "SatisfAI offers extensive integration capabilities with a wide range of popular chat platforms, CRM systems, and business tools. We provide native integrations with major platforms including Intercom, Zendesk, Drift, LiveChat, Freshchat, HubSpot, Salesforce, Slack, Microsoft Teams, and many others. Our integration architecture is built on a flexible API that allows for custom integrations with virtually any platform that supports webhooks or REST APIs. Each integration is designed to be seamless, automatically syncing conversation data, customer information, and analytics metrics in real-time. For enterprise customers, we offer dedicated integration support, custom connector development, and assistance with complex multi-platform setups.",
+  },
+  {
+    question: "How does SatisfAI ensure data security and privacy?",
+    answer:
+      "Data security and privacy are fundamental priorities at SatisfAI, and we implement multiple layers of protection to safeguard your information. All data transmission is encrypted using TLS 1.3, the latest and most secure encryption standard, ensuring that information is protected both in transit and at rest. Our infrastructure is hosted on enterprise-grade cloud platforms with SOC 2 Type II certification, meaning we meet the highest standards for security, availability, and confidentiality. We employ role-based access controls that allow you to manage who can view, edit, or export data within your organization, with granular permissions for different team members. We comply with major data protection regulations including GDPR, CCPA, and HIPAA (for applicable use cases), giving you confidence that your data handling meets legal requirements. We never share or sell your data to third parties, and you maintain full ownership and control of all information processed through our platform.",
+  },
+  {
+    question: "What kind of analytics and reporting features are available?",
+    answer:
+      "SatisfAI provides a comprehensive suite of analytics and reporting features designed to give you deep insights into your customer communications. Our analytics dashboard includes real-time metrics such as conversation volume, response times, customer satisfaction scores, agent performance metrics, and conversation sentiment analysis. You can create custom reports with drag-and-drop report builders, allowing you to combine multiple data sources, apply filters, and visualize information in charts, graphs, and tables. Advanced analytics features include predictive modeling that forecasts customer satisfaction trends, identifies at-risk conversations, and suggests proactive interventions. We offer conversation flow analysis that maps customer journeys, identifies bottlenecks, and highlights optimization opportunities. Sentiment analysis uses natural language processing to understand customer emotions throughout conversations, helping you identify frustrated customers or positive experiences. You can set up automated reports that are delivered via email on schedules you define, ensuring stakeholders always have access to the latest insights.",
+  },
+  {
+    question: "Can I customize the dashboard and analytics views?",
+    answer:
+      "Absolutely! SatisfAI offers extensive customization options that allow you to tailor the dashboard and analytics views to match your specific needs and preferences. The dashboard builder provides a drag-and-drop interface where you can add, remove, resize, and rearrange widgets to create a personalized view of your most important metrics. You can choose from a library of pre-built widgets including charts, tables, gauges, and KPI cards, or create custom widgets using our widget builder. Color schemes, fonts, and layout options can be customized to match your brand identity or personal preferences. You can create multiple dashboard views for different purposes—for example, an executive dashboard with high-level KPIs, an operational dashboard for daily management, or a detailed analytics dashboard for deep dives.",
+  },
+  {
+    question: "What are the system requirements and browser compatibility?",
+    answer:
+      "SatisfAI is a cloud-based platform that requires no software installation, making it accessible from virtually any device with an internet connection and a modern web browser. We support all major browsers including Google Chrome (recommended), Mozilla Firefox, Microsoft Edge, Safari, and Opera, with support for the latest two versions of each browser. The platform is optimized for both desktop and mobile devices, with responsive design that automatically adapts to different screen sizes. For the best experience, we recommend using Chrome or Firefox on desktop with a minimum screen resolution of 1280x720 pixels. Mobile devices running iOS 12+ or Android 8+ are fully supported, with native mobile apps available for iOS and Android. There are no specific hardware requirements since all processing happens in the cloud, but a stable internet connection with a minimum speed of 1 Mbps is recommended for optimal performance.",
+  },
+];
+
+const FAQAccordion: React.FC<{ data: typeof faqData }> = ({ data }) => {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const toggle = (idx: number) => {
     setOpenIdx(openIdx === idx ? null : idx);
   };
   return (
     <div className="faq-list">
-      {faqData.map((item, idx) => (
+      {data.map((item, idx) => (
         <div
           className={`faq-item${openIdx === idx ? " open" : ""}`}
           key={item.question}
         >
           <button className="faq-question" onClick={() => toggle(idx)}>
             {item.question}
-            <span className="faq-arrow">{openIdx === idx ? "−" : "+"}</span>
+            <FaChevronDown
+              className={`faq-arrow ${openIdx === idx ? "open" : ""}`}
+            />
           </button>
           <div
             className="faq-answer-wrapper"

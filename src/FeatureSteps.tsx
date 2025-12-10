@@ -41,7 +41,7 @@ export const FeatureSteps: React.FC<FeatureStepsProps> = ({
   return (
     <div className={`feature-steps-container ${className}`}>
       <div className="feature-steps-wrapper">
-        <h2 className="feature-steps-title">{title}</h2>
+        {title && <h2 className="feature-steps-title">{title}</h2>}
         <div className="feature-steps-grid">
           <div className="feature-steps-list">
             {features.map((feature, index) => (
