@@ -40,6 +40,9 @@ import {
 import logo from "./assets/logo.PNG";
 import screenshot from "./assets/screenshot.PNG";
 import screenshot1 from "./assets/screenshot1.PNG";
+import chatImage from "./assets/chat.png";
+import dashboardImage from "./assets/dashboard.png";
+import textAnalysisImage from "./assets/textanalisys.png";
 
 const lineData = [
   { name: "Mon", value: 900 },
@@ -650,33 +653,6 @@ const StarterPage: React.FC = () => {
         </nav>
       </div>
       <main className="starter-main">
-        <div className="starter-content">
-          <div className="starter-tagline">
-            Analyze{" "}
-            <span className="hero-card-blue">
-              <FaHourglassHalf className="hero-icon" />
-              54x
-            </span>{" "}
-            faster, with{" "}
-            <span className="hero-card-green">
-              <FaDollarSign className="hero-icon" />
-              40%
-            </span>{" "}
-            less cost
-          </div>
-          <button
-            className="starter-cta-btn-register"
-            onClick={() => navigate("/signin")}
-          >
-            Register Now
-          </button>
-          <button
-            className="starter-cta-btn"
-            onClick={() => navigate("/dashboard")}
-          >
-            Analyse Now
-          </button>
-        </div>
         <div className="starter-illustration">
           <div className="illustration-icon robot">
             <FaRobot />
@@ -689,6 +665,31 @@ const StarterPage: React.FC = () => {
           </div>
           <div className="illustration-icon cog">
             <FaCog />
+          </div>
+        </div>
+        <div className="starter-content">
+          <h1 className="hero-title">AI-Powered Chat Analytics</h1>
+          <p className="hero-subtitle">
+            Assess high-impact quality issues with detailed Chat Analytics & Observability Suite.
+          </p>
+          <div className="hero-cta-buttons">
+            <button
+              className="hero-cta-primary"
+              onClick={() => navigate("/signin")}
+            >
+              Try for free
+            </button>
+            <button
+              className="hero-cta-secondary"
+              onClick={() => navigate("/dashboard")}
+            >
+              Book a Demo
+            </button>
+          </div>
+          <div className="hero-images-stacked">
+            <img src={dashboardImage} alt="Dashboard" className="hero-stacked-image hero-image-1" />
+            <img src={chatImage} alt="Chat Interface" className="hero-stacked-image hero-image-2" />
+            <img src={textAnalysisImage} alt="Text Analysis" className="hero-stacked-image hero-image-3" />
           </div>
         </div>
       </main>
