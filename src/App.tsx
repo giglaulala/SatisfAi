@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -30,16 +30,11 @@ import {
   FaShieldAlt,
   FaHeadset,
   FaCheckCircle,
-  FaGlobe,
   FaChevronDown,
-  FaHourglassHalf,
-  FaDollarSign,
   FaBars,
   FaTimes,
 } from "react-icons/fa";
 import logo from "./assets/logo.PNG";
-import screenshot from "./assets/screenshot.PNG";
-import screenshot1 from "./assets/screenshot1.PNG";
 import chatImage from "./assets/chat.png";
 import dashboardImage from "./assets/dashboard.png";
 import textAnalysisImage from "./assets/textanalisys.png";
@@ -279,46 +274,8 @@ const Dashboard: React.FC = () => {
 
 const StarterPage: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedLanguage, setSelectedLanguage] = useState("EN");
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const languageSelectorRef = useRef<HTMLDivElement>(null);
-
-  const languages = [
-    { code: "EN", name: "English" },
-    { code: "KA", name: "ქართული" },
-    { code: "RU", name: "Русский" },
-  ];
-
-  const handleLanguageSelect = (languageCode: string) => {
-    setSelectedLanguage(languageCode);
-    setIsLanguageDropdownOpen(false);
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        languageSelectorRef.current &&
-        !languageSelectorRef.current.contains(event.target as Node)
-      ) {
-        setIsLanguageDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  // Close language dropdown when mobile menu closes
-  useEffect(() => {
-    if (!isMobileMenuOpen) {
-      setIsLanguageDropdownOpen(false);
-    }
-  }, [isMobileMenuOpen]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
