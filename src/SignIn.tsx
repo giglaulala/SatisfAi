@@ -75,9 +75,18 @@ const SignIn: React.FC = () => {
         }}
       >
         <div className="signin-nav">
-          <div className="signin-logo">
+          <button
+            className="signin-logo"
+            onClick={() => navigate("/")}
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+            }}
+          >
             <img src={logo} alt="SatisfAI Logo" className="signin-logo-img" />
-          </div>
+          </button>
         </div>
       </div>
 
@@ -85,9 +94,18 @@ const SignIn: React.FC = () => {
       <div className="signin-right">
         <div className="signin-form-container">
           <div className="signin-header-top">
-            <div className="signin-logo">
+            <button
+              className="signin-logo"
+              onClick={() => navigate("/")}
+              style={{
+                background: "none",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+              }}
+            >
               <img src={logo} alt="SatisfAI Logo" className="signin-logo-img" />
-            </div>
+            </button>
             <div className="signin-nav-right">
               <button
                 className="signin-contact-btn-top"
@@ -97,6 +115,11 @@ const SignIn: React.FC = () => {
               </button>
             </div>
           </div>
+
+          <button className="signin-back-btn" onClick={() => navigate("/")}>
+            <FaArrowLeft style={{ marginRight: 8 }} />
+            Back to Home
+          </button>
 
           <h1 className="signin-title">Sign in</h1>
 
@@ -164,11 +187,6 @@ const SignIn: React.FC = () => {
               </span>
             </p>
           </div>
-
-          <button className="signin-back-btn" onClick={() => navigate("/")}>
-            <FaArrowLeft style={{ marginRight: 8 }} />
-            Back to Home
-          </button>
         </div>
       </div>
     </div>
