@@ -102,23 +102,17 @@ const Contact: React.FC = () => {
             <FaEnvelope />
             <div>
               <span>Email</span>
-              <strong>hello@satisf.ai</strong>
+              <strong>hello@satisfai.com</strong>
             </div>
           </div>
           <div className="contact-primary-row">
             <FaPhoneAlt />
             <div>
               <span>Phone</span>
-              <strong>+995 555 001 200</strong>
+              <strong>+995 591 81 02 28</strong>
             </div>
           </div>
-          <div className="contact-primary-row">
-            <FaWhatsapp />
-            <div>
-              <span>WhatsApp</span>
-              <strong>+995 571 777 333</strong>
-            </div>
-          </div>
+
           <div className="contact-primary-row">
             <FaClock />
             <div>
@@ -134,7 +128,7 @@ const Contact: React.FC = () => {
           <div className="contact-marquee-track">
             {[...offices, "map", ...offices, "map"].map((item, index) =>
               item === "map" ? (
-            <div className="contact-map-card" key={`map-${index}`}>
+                <div className="contact-map-card" key={`map-${index}`}>
                   <div className="contact-map-copy">
                     <p className="contact-card-label">Visit HQ</p>
                     <h3>We host private workshops weekly</h3>
@@ -155,19 +149,25 @@ const Contact: React.FC = () => {
                     <span>Tbilisi</span>
                   </div>
                 </div>
-              ) : (
-                typeof item === "object" && item !== null && "title" in item ? (
+              ) : typeof item === "object" &&
+                item !== null &&
+                "title" in item ? (
                 <div className="contact-card" key={`${item.title}-${index}`}>
                   <p className="contact-card-label">{item.title}</p>
                   <h3>{item.address}</h3>
                   <span>{item.hours}</span>
                   <p className="contact-card-desc">
-                    Teams in {item.title.includes("Berlin") ? "Europe" : item.title.includes("San Francisco") ? "North America" : "Georgia"} rely on SatisfAI to run executive reviews, roadmap checkpoints,
-                    and customer empathy labs every quarter.
+                    Teams in{" "}
+                    {item.title.includes("Berlin")
+                      ? "Europe"
+                      : item.title.includes("San Francisco")
+                      ? "North America"
+                      : "Georgia"}{" "}
+                    rely on SatisfAI to run executive reviews, roadmap
+                    checkpoints, and customer empathy labs every quarter.
                   </p>
                 </div>
-                ) : null
-              )
+              ) : null
             )}
           </div>
         </div>
@@ -257,4 +257,3 @@ const Contact: React.FC = () => {
 };
 
 export default Contact;
-
