@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaArrowLeft,
+} from "react-icons/fa";
 import logo from "./assets/logo.PNG";
+import chatbotImage from "./assets/Chatbot-rafiki.png";
 import "./App.css";
 
 const SignIn: React.FC = () => {
@@ -57,20 +64,19 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="signin-container">
-      {/* Left side - Blue gradient with content */}
-      <div className="signin-left">
+      {/* Left side - Chatbot illustration background */}
+      <div
+        className="signin-left"
+        style={{
+          backgroundImage: `url(${chatbotImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <div className="signin-nav">
           <div className="signin-logo">
             <img src={logo} alt="SatisfAI Logo" className="signin-logo-img" />
-          </div>
-        </div>
-        <div className="signin-overlay">
-          <div className="signin-left-content">
-            <h1 className="signin-left-title">Welcome to SatisfAI</h1>
-            <p className="signin-left-subtitle">
-              Advanced chat analytics and AI-powered insights to optimize your
-              customer interactions and drive business growth.
-            </p>
           </div>
         </div>
       </div>
@@ -91,7 +97,7 @@ const SignIn: React.FC = () => {
               </button>
             </div>
           </div>
-          
+
           <h1 className="signin-title">Sign in</h1>
 
           {/* Sign in form */}
