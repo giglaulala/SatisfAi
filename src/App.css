@@ -1409,6 +1409,7 @@ body::-webkit-scrollbar {
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  z-index: 0;
 }
 
 .hero-stacked-image {
@@ -1441,7 +1442,7 @@ body::-webkit-scrollbar {
 .hero-images-stacked:hover .hero-image-1,
 .hero-images-stacked:hover .hero-image-2,
 .hero-images-stacked:hover .hero-image-3 {
-  transform: translateY(-10px) scale(1.05);
+  transform: translateY(10px) scale(1.02);
 }
 
 .animated-background-text-container {
@@ -1546,6 +1547,8 @@ body::-webkit-scrollbar {
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-cta-primary {
